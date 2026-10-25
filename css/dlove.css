@@ -78,3 +78,159 @@
         transform: translateY(-50%) translateX(6px);
     }
 }
+
+
+/* ========================================================
+   RESPONSIVE TOÀN DIỆN CHO MOBILE & IPAD (dlove.html)
+   ======================================================== */
+
+/* Đảm bảo toàn bộ không gian 3D và hoa vừa khít trên mọi kích thước */
+:root {
+    --vh: 1vh;
+}
+
+/* 1. MÀN HÌNH BÓ HOA KỶ NIỆM (BOUQUET STAGE) */
+@media (max-width: 1024px) {
+    /* iPad / Tablet */
+    .bouquet-screen .bouquet-stage {
+        width: min(92vw, calc((100svh - 80px) / 1.28), 520px) !important;
+        max-width: 520px !important;
+    }
+    .topbar {
+        top: max(20px, env(safe-area-inset-top)) !important;
+        right: max(16px, env(safe-area-inset-right)) !important;
+    }
+}
+
+@media (max-width: 768px) {
+    /* Mobile màn hình lớn & iPad mini */
+    .bouquet-screen .bouquet-stage {
+        width: min(94vw, calc((100svh - 60px) / 1.28), 440px) !important;
+    }
+    .topbar {
+        top: max(15px, env(safe-area-inset-top)) !important;
+        right: max(12px, env(safe-area-inset-right)) !important;
+        gap: 14px !important;
+    }
+    .topbar-letter {
+        width: 48px !important;
+        height: 48px !important;
+    }
+    .topbar-letter .envelope-cover {
+        width: 42px !important;
+    }
+    .topbar-music {
+        width: 38px !important;
+        height: 38px !important;
+    }
+}
+
+@media (max-width: 480px) {
+    /* Mobile chuẩn */
+    .bouquet-screen .bouquet-stage {
+        width: min(96vw, calc((100svh - 40px) / 1.28), 380px) !important;
+    }
+    .bouquet-screen .bouquet-hint {
+        font-size: 11px !important;
+        bottom: 8px !important;
+    }
+    /* Chú thích mở thư trên Mobile nhỏ gọn & không bị tràn màn hình */
+    .topbar-letter::after {
+        font-size: 11px !important;
+        padding: 5px 10px !important;
+        right: calc(100% + 8px) !important;
+        border-radius: 16px !important;
+        white-space: nowrap !important;
+    }
+}
+
+@media (max-width: 360px) {
+    /* Mobile cỡ nhỏ */
+    .bouquet-screen .bouquet-stage {
+        width: min(96vw, calc((100svh - 30px) / 1.28), 340px) !important;
+    }
+    .topbar-letter::after {
+        font-size: 10px !important;
+        padding: 4px 8px !important;
+    }
+}
+
+/* 2. GIAO DIỆN PHONG BÌ THƯ & BỨC THƯ (ENVELOPE & LETTER PAPER) */
+@media (max-width: 1024px) {
+    .fl-modal .envelope {
+        max-width: 620px !important;
+    }
+    .fl-modal .letter-paper {
+        max-width: 580px !important;
+        height: min(78vh, 680px) !important;
+        padding: 85px 32px 55px !important;
+    }
+    .fl-modal .letter-copy h1 {
+        font-size: 46px !important;
+    }
+    .fl-modal .letter-paragraphs p {
+        font-size: 17px !important;
+        line-height: 1.65 !important;
+    }
+}
+
+@media (max-width: 768px) {
+    .fl-modal {
+        padding: 12px !important;
+    }
+    .fl-modal .envelope {
+        width: 96% !important;
+        max-width: 500px !important;
+        bottom: 15px !important;
+    }
+    .fl-modal .letter-paper {
+        width: 95% !important;
+        left: 2.5% !important;
+        height: min(80vh, 620px) !important;
+        padding: 75px 22px 50px !important;
+        border-radius: 14px !important;
+    }
+    .fl-modal .letter-copy h1 {
+        font-size: 38px !important;
+        margin-bottom: 14px !important;
+    }
+    .fl-modal .letter-paragraphs p {
+        font-size: 15px !important;
+        line-height: 1.6 !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .fl-modal .envelope {
+        width: 98% !important;
+        max-width: 420px !important;
+        bottom: 10px !important;
+    }
+    .fl-modal .letter-paper {
+        width: 96% !important;
+        left: 2% !important;
+        height: min(82vh, 560px) !important;
+        padding: 60px 16px 40px !important;
+        border-radius: 12px !important;
+    }
+    .fl-modal .letter-copy h1 {
+        font-size: 30px !important;
+        margin-bottom: 10px !important;
+    }
+    .fl-modal .letter-paragraphs p {
+        font-size: 13.5px !important;
+        line-height: 1.55 !important;
+        margin-bottom: 12px !important;
+    }
+    .fl-modal .fl-toolbar .fl-close {
+        width: 34px !important;
+        height: 34px !important;
+        top: 10px !important;
+        right: 10px !important;
+    }
+}
+
+/* 3. TỐI ƯU KHÔNG GIAN DẢI NGÂN HÀ 3D TRÊN THIẾT BỊ DI ĐỘNG */
+canvas {
+    touch-action: manipulation !important;
+}

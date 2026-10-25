@@ -439,3 +439,63 @@ html, body {
     }
 }
 
+
+
+/* ========================================================
+   RESPONSIVE HOÀN HẢO CHO GALAXY (galaxy.css)
+   ======================================================== */
+
+/* Đảm bảo iPad màn hình dọc (portrait 768px-1024px) vẫn ngắm được ngân hà hoặc xoay ngang mượt mà */
+@media screen and (min-width: 768px) and (orientation: portrait) {
+    /* Cho phép iPad dọc hiển thị tốt, giảm bớt chặn gắt */
+    .planet-gift-prompt {
+        bottom: 40px !important;
+        width: 90% !important;
+        max-width: 500px !important;
+    }
+    .planet-gift-badge {
+        font-size: 16px !important;
+        padding: 10px 24px !important;
+        white-space: normal !important;
+    }
+}
+
+/* Tối ưu màn hình Mobile xoay ngang (iPhone, Samsung, Xiaomi) */
+@media screen and (max-height: 500px) and (orientation: landscape) {
+    .planet-gift-prompt {
+        bottom: 12px !important;
+        width: 90% !important;
+        max-width: 480px !important;
+    }
+    .planet-gift-icon {
+        font-size: 22px !important;
+        margin-bottom: 2px !important;
+    }
+    .planet-gift-badge {
+        font-size: 12px !important;
+        padding: 6px 16px !important;
+        white-space: nowrap !important;
+    }
+    .planet-gift-sub {
+        font-size: 10px !important;
+        margin-top: 2px !important;
+    }
+    .btn-audio-toggle {
+        bottom: 12px !important;
+        right: 12px !important;
+        width: 38px !important;
+        height: 38px !important;
+    }
+}
+
+/* Thẻ gợi ý chống tràn chữ trên mọi kích thước màn hình */
+.planet-gift-badge {
+    max-width: 90vw !important;
+    box-sizing: border-box !important;
+    text-align: center !important;
+}
+
+.planet-gift-sub {
+    max-width: 85vw !important;
+    text-align: center !important;
+}

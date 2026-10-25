@@ -632,8 +632,18 @@
             }
         }
 
-        /* Khóa dọc trên mobile */
-        @media (max-width: 900px) and (orientation: portrait) {
+        /* Responsive cho iPad & Màn hình dọc lớn */
+        @media (min-width: 768px) and (max-width: 1024px) {
+            .luxury-stage {
+                transform: translate(-50%, -48%) scale(0.95);
+            }
+            .gift-main-title {
+                font-size: 24px;
+            }
+        }
+
+        /* Khóa dọc trên mobile màn hình nhỏ */
+        @media (max-width: 767px) and (orientation: portrait) {
             .landscape-blocker {
                 display: flex;
             }
