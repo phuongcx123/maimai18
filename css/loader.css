@@ -1,0 +1,308 @@
+/* ═══════════════════════════════════════════════════════
+   LOADER CSS — Car race loading screen with milestones 🚗
+   ═══════════════════════════════════════════════════════ */
+
+#loader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 999999;
+    background: radial-gradient(circle at 50% 30%, #1f1d36 0%, #121024 60%, #080714 100%);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    font-family: 'Mali', cursive, sans-serif;
+    user-select: none;
+    transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ── Twinkling Stars ── */
+.ld-stars {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.ld-star {
+    position: absolute;
+    background: #ffffff;
+    border-radius: 50%;
+    box-shadow: 0 0 6px rgba(255, 255, 255, 0.85);
+    animation-name: ldStarTwinkle;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease-in-out;
+}
+
+@keyframes ldStarTwinkle {
+    0%, 100% {
+        opacity: 0.2;
+        transform: scale(0.6);
+    }
+    50% {
+        opacity: 1;
+        transform: scale(1.3);
+    }
+}
+
+/* ── Header Information ── */
+.ld-header {
+    text-align: center;
+    margin-bottom: 40px;
+    z-index: 2;
+    padding: 0 20px;
+}
+
+.ld-title {
+    font-size: clamp(22px, 5vw, 34px);
+    font-weight: 700;
+    color: #ffbe00;
+    text-shadow: 0 0 20px rgba(255, 190, 0, 0.6), 0 2px 10px rgba(0, 0, 0, 0.5);
+    margin-bottom: 10px;
+    letter-spacing: 0.5px;
+}
+
+.ld-subtitle {
+    font-size: clamp(14px, 3.5vw, 18px);
+    color: rgba(255, 255, 255, 0.88);
+    font-weight: 600;
+    min-height: 28px;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+}
+
+.ld-percent {
+    font-size: clamp(36px, 8vw, 48px);
+    font-weight: 800;
+    color: #ff4d6d;
+    text-shadow: 0 0 25px rgba(255, 77, 109, 0.7), 0 2px 10px rgba(0, 0, 0, 0.4);
+    margin-top: 10px;
+    font-variant-numeric: tabular-nums;
+}
+
+/* ── Scene Container ── */
+.ld-scene {
+    position: relative;
+    width: 92%;
+    max-width: 780px;
+    height: 180px;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+
+/* ── Milestones ── */
+.ld-milestones {
+    position: absolute;
+    width: 100%;
+    top: 10px;
+    left: 0;
+    bottom: 65px;
+    pointer-events: none;
+}
+
+.ld-ms {
+    position: absolute;
+    bottom: 0;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    opacity: 0.28;
+    transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+.ld-ms-icon {
+    font-size: clamp(22px, 4.8vw, 30px);
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.5));
+    transition: transform 0.3s, filter 0.3s;
+}
+
+.ld-ms-label {
+    font-size: clamp(10px, 2.4vw, 12px);
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.5);
+    white-space: nowrap;
+    margin-top: 4px;
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.8);
+}
+
+.ld-ms-pole {
+    width: 2px;
+    height: 16px;
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.1));
+    margin-top: 4px;
+    border-radius: 1px;
+}
+
+/* ── Burst Particle Container ── */
+.ld-burst {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    pointer-events: none;
+}
+
+.ld-burst span {
+    position: absolute;
+    font-size: 18px;
+    pointer-events: none;
+    will-change: transform, opacity;
+}
+
+/* ── Road & Ground ── */
+.ld-road-wrap {
+    position: relative;
+    width: 100%;
+    height: 60px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+
+.ld-road {
+    width: 100%;
+    height: 36px;
+    background: #23253a;
+    border-radius: 20px;
+    position: relative;
+    overflow: hidden;
+    border: 2px solid rgba(255, 255, 255, 0.18);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5), inset 0 2px 6px rgba(0, 0, 0, 0.6);
+}
+
+.ld-road-line {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 200%;
+    height: 4px;
+    transform: translateY(-50%);
+    background: repeating-linear-gradient(90deg, #ffbe00 0px, #ffbe00 20px, transparent 20px, transparent 40px);
+    animation: ldRoadMove 0.7s linear infinite;
+}
+
+.ld-road-line.paused {
+    animation-play-state: paused;
+}
+
+@keyframes ldRoadMove {
+    0% {
+        transform: translateY(-50%) translateX(0);
+    }
+    100% {
+        transform: translateY(-50%) translateX(-40px);
+    }
+}
+
+/* ── Car ── */
+.ld-car {
+    position: absolute;
+    bottom: 20px;
+    font-size: clamp(30px, 6.5vw, 38px);
+    line-height: 1;
+    z-index: 5;
+    will-change: transform, left;
+    filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.5));
+}
+
+/* ── Smoke Puff ── */
+.ld-smoke {
+    position: absolute;
+    bottom: 30px;
+    font-size: 18px;
+    pointer-events: none;
+    z-index: 4;
+    will-change: transform, opacity;
+}
+
+.ld-ground {
+    height: 6px;
+    width: 96%;
+    margin: 4px auto 0;
+    background: linear-gradient(90deg, transparent, rgba(255, 77, 109, 0.35), rgba(255, 190, 0, 0.35), transparent);
+    border-radius: 50%;
+    filter: blur(3px);
+}
+
+/* ── Confetti Canvas ── */
+.ld-confetti-canvas {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 15;
+    width: 100%;
+    height: 100%;
+}
+
+/* ═══════════════════════════════════════════════════════
+   RESPONSIVE — PC / iPad / Mobile
+   ═══════════════════════════════════════════════════════ */
+@media (max-width: 680px) {
+    .ld-header {
+        margin-bottom: 24px;
+        padding: 0 14px;
+    }
+    .ld-scene {
+        height: 150px;
+        width: 95%;
+    }
+    .ld-road-wrap {
+        height: 50px;
+    }
+    .ld-road {
+        height: 30px;
+    }
+    .ld-car {
+        bottom: 16px;
+    }
+}
+
+@media (max-width: 480px) {
+    .ld-header {
+        margin-bottom: 18px;
+    }
+    .ld-scene {
+        height: 135px;
+    }
+    .ld-ms-label {
+        font-size: 10px;
+    }
+}
+
+@media (max-height: 500px) and (orientation: landscape) {
+    .ld-header {
+        margin-bottom: 10px;
+        padding: 0 10px;
+    }
+    .ld-title {
+        font-size: 20px;
+        margin-bottom: 4px;
+    }
+    .ld-subtitle {
+        font-size: 13px;
+        min-height: 20px;
+    }
+    .ld-percent {
+        font-size: 26px;
+        margin-top: 4px;
+    }
+    .ld-scene {
+        height: 120px;
+        max-width: 550px;
+    }
+    .ld-road-wrap {
+        height: 42px;
+    }
+    .ld-road {
+        height: 26px;
+    }
+    .ld-car {
+        bottom: 14px;
+        font-size: 28px;
+    }
+}

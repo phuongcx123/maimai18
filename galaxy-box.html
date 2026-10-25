@@ -1,0 +1,980 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hộp Quà Vũ Trụ 🎁 - Chị Trinh</title>
+    <link rel="icon" href="./assets/galaxy/photo1.png" type="image/png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Mali:ital,wght@0,300;0,400;0,600;0,700;1,400&family=Quicksand:wght@500;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+            background: #08030f;
+            font-family: 'Mali', cursive;
+            color: #ffffff;
+            user-select: none;
+            touch-action: manipulation;
+        }
+
+        /* Canvas Three.js Dải Ngân Hà Sao 3D nền */
+        #galaxy-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        /* Lớp ánh sáng tinh vân tím hồng lung linh */
+        .nebula-glow {
+            position: fixed;
+            inset: 0;
+            background: radial-gradient(circle at 50% 50%, rgba(219, 39, 119, 0.22) 0%, rgba(139, 92, 246, 0.14) 40%, rgba(8, 3, 15, 0.88) 80%);
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        /* Khung hiển thị tổng thể */
+        .gift-page-wrapper {
+            position: fixed;
+            inset: 0;
+            z-index: 10;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            padding: 24px 20px;
+            pointer-events: none;
+        }
+
+        /* Tiêu đề vũ trụ sang trọng phía trên */
+        .gift-header {
+            animation: fadeInDown 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+            text-align: center;
+            margin-top: 6px;
+        }
+
+        .gift-sub-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 20px;
+            background: rgba(255, 77, 109, 0.18);
+            border: 1px solid rgba(255, 209, 102, 0.45);
+            border-radius: 30px;
+            font-size: 13px;
+            font-weight: 600;
+            color: #ffd166;
+            margin-bottom: 8px;
+            box-shadow: 0 0 25px rgba(255, 209, 102, 0.25);
+            letter-spacing: 0.5px;
+        }
+
+        .gift-main-title {
+            font-size: 32px;
+            font-weight: 700;
+            color: #ffffff;
+            text-shadow: 0 0 20px rgba(255, 77, 109, 0.7), 0 0 40px rgba(255, 209, 102, 0.4);
+            letter-spacing: 0.8px;
+            line-height: 1.3;
+        }
+
+        .gift-main-title span {
+            background: linear-gradient(135deg, #ffd166, #ff758c);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* ══════════════════════════════════════════════════════
+           SÂN KHẤU HỘP QUÀ NHUNG & NƠ LỤA SANG TRỌNG (LUXURY GIFT BOX)
+           ══════════════════════════════════════════════════════ */
+        .luxury-stage {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -46%);
+            pointer-events: auto;
+            cursor: pointer;
+            z-index: 15;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .luxury-stage:hover {
+            transform: translate(-50%, -48%) scale(1.05);
+        }
+
+        .luxury-stage:active {
+            transform: translate(-50%, -46%) scale(0.97);
+        }
+
+        /* Quầng sáng vầng hào quang ấm áp sau hộp quà */
+        .aura-halo {
+            position: absolute;
+            width: 320px;
+            height: 320px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(255, 209, 102, 0.35) 0%, rgba(219, 39, 119, 0.25) 42%, rgba(0, 0, 0, 0) 72%);
+            filter: blur(25px);
+            animation: pulseHalo 3.2s ease-in-out infinite;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        /* Các hạt sao & trái tim lấp lánh bay lượn */
+        .sparkle-orb {
+            position: absolute;
+            pointer-events: none;
+            z-index: 20;
+            animation: floatSparkle 3s ease-in-out infinite;
+        }
+        .sp-top-l { top: -25px; left: -20px; font-size: 24px; animation-delay: 0s; }
+        .sp-top-r { top: -20px; right: -25px; font-size: 20px; animation-delay: 1.1s; }
+        .sp-bot-l { bottom: 15px; left: -30px; font-size: 22px; animation-delay: 1.8s; }
+        .sp-bot-r { bottom: 20px; right: -25px; font-size: 22px; animation-delay: 2.5s; }
+
+        /* Khối Hộp quà 3D tinh tế */
+        .gift-container-3d {
+            position: relative;
+            width: 200px;
+            height: 200px;
+            z-index: 5;
+            animation: gentleHover 4s ease-in-out infinite;
+        }
+
+        /* ─── 1. BỘ NẮP HỘP VÀ NƠ LỤA ─── */
+        .lid-assembly {
+            position: absolute;
+            top: 25px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 216px;
+            z-index: 10;
+            transition: transform 0.85s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.7s ease;
+        }
+
+        /* Nắp hộp quà nhung */
+        .lid-box {
+            position: relative;
+            width: 100%;
+            height: 42px;
+            background: linear-gradient(145deg, #c2185b 0%, #e91e63 28%, #ad1457 70%, #880e4f 100%);
+            border-radius: 12px;
+            box-shadow: 
+                0 10px 30px rgba(0, 0, 0, 0.6),
+                inset 0 2px 4px rgba(255, 255, 255, 0.6),
+                inset 0 -3px 8px rgba(0, 0, 0, 0.4);
+            border: 1.5px solid rgba(255, 215, 120, 0.5);
+            overflow: hidden;
+        }
+
+        /* Viền kim tuyến vàng sang trọng dưới chân nắp */
+        .lid-gold-trim {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, #d4af37, #fff2a3, #d4af37);
+            box-shadow: 0 0 6px rgba(255, 215, 0, 0.6);
+        }
+
+        /* Dây ruy-băng lụa satin trên nắp hộp */
+        .lid-ribbon-v {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 32px;
+            height: 100%;
+            background: linear-gradient(90deg, #b8860b 0%, #e6ca65 20%, #fff6d6 50%, #e6ca65 80%, #996515 100%);
+            box-shadow: inset 0 0 3px rgba(255, 255, 255, 0.8), 0 0 10px rgba(255, 209, 102, 0.4);
+            border-left: 1px solid rgba(255, 255, 255, 0.35);
+            border-right: 1px solid rgba(138, 90, 10, 0.35);
+            transition: transform 0.6s ease, opacity 0.5s ease;
+        }
+
+        .lid-ribbon-h {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            transform: translateY(-50%);
+            width: 100%;
+            height: 30px;
+            background: linear-gradient(180deg, #b8860b 0%, #e6ca65 20%, #fff6d6 50%, #e6ca65 80%, #996515 100%);
+            box-shadow: inset 0 0 3px rgba(255, 255, 255, 0.8), 0 0 10px rgba(255, 209, 102, 0.4);
+            border-top: 1px solid rgba(255, 255, 255, 0.35);
+            border-bottom: 1px solid rgba(138, 90, 10, 0.35);
+            transition: transform 0.6s ease, opacity 0.5s ease;
+        }
+
+        /* ─── 2. CHIẾC NƠ LỤA SATIN 3D TINH XẢO KIỂU PHÁP (FRENCH SATIN BOW) ─── */
+        .satin-bow-wrap {
+            position: absolute;
+            top: -38px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 130px;
+            height: 80px;
+            z-index: 15;
+            transition: transform 0.65s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.55s ease;
+        }
+
+        /* Cánh nơ lụa mềm mại 3D uốn cong tự nhiên */
+        .bow-wing {
+            position: absolute;
+            background: linear-gradient(135deg, #ffd166 0%, #fff3b0 35%, #e6ca65 70%, #aa771c 100%);
+            box-shadow: 
+                0 8px 18px rgba(0, 0, 0, 0.45),
+                inset 0 2px 6px rgba(255, 255, 255, 0.9),
+                inset 0 -3px 8px rgba(138, 90, 10, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            transition: transform 0.6s ease, opacity 0.5s ease;
+        }
+
+        /* Cánh nơ lớn phía sau */
+        .wing-back-left {
+            top: 10px;
+            left: 12px;
+            width: 54px;
+            height: 38px;
+            border-radius: 50% 50% 20% 50%;
+            transform: rotate(-32deg) skewX(-12deg);
+        }
+
+        .wing-back-right {
+            top: 10px;
+            right: 12px;
+            width: 54px;
+            height: 38px;
+            border-radius: 50% 50% 50% 20%;
+            transform: rotate(32deg) skewX(12deg);
+        }
+
+        /* Cánh nơ nhỏ bồng bềnh phía trước */
+        .wing-front-left {
+            top: 18px;
+            left: 24px;
+            width: 44px;
+            height: 30px;
+            border-radius: 50% 50% 25% 50%;
+            transform: rotate(-18deg);
+            background: linear-gradient(135deg, #fff3b0 0%, #ffd166 40%, #c9932b 100%);
+            z-index: 2;
+        }
+
+        .wing-front-right {
+            top: 18px;
+            right: 24px;
+            width: 44px;
+            height: 30px;
+            border-radius: 50% 50% 50% 25%;
+            transform: rotate(18deg);
+            background: linear-gradient(135deg, #fff3b0 0%, #ffd166 40%, #c9932b 100%);
+            z-index: 2;
+        }
+
+        /* Nút thắt nơ tròn trung tâm có nếp gấp lụa */
+        .bow-knot {
+            position: absolute;
+            top: 24px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 24px;
+            height: 22px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #fff6d6 0%, #ffd166 45%, #b8860b 85%);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4), inset 0 2px 4px rgba(255, 255, 255, 0.9);
+            border: 1px solid rgba(255, 255, 255, 0.7);
+            z-index: 10;
+        }
+
+        /* 2 dải lụa đuôi nơ buông rủ có đuôi cá nhọn */
+        .ribbon-streamer {
+            position: absolute;
+            width: 22px;
+            height: 64px;
+            background: linear-gradient(180deg, #ffd166 0%, #e6ca65 50%, #b8860b 100%);
+            box-shadow: 0 6px 14px rgba(0, 0, 0, 0.35);
+            clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 50% 82%, 0% 100%);
+            z-index: 1;
+            transition: transform 0.6s ease, opacity 0.5s ease;
+        }
+
+        .streamer-left {
+            top: 36px;
+            left: 36px;
+            transform: rotate(-15deg);
+        }
+
+        .streamer-right {
+            top: 36px;
+            right: 36px;
+            transform: rotate(15deg);
+        }
+
+        /* ─── 3. THÂN HỘP QUÀ NHUNG (BOX BODY) ─── */
+        .box-body-wrap {
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 194px;
+            height: 145px;
+            background: linear-gradient(145deg, #9d174d 0%, #be185d 25%, #831843 60%, #4a0422 100%);
+            border-radius: 0 0 18px 18px;
+            box-shadow: 
+                0 25px 60px rgba(0, 0, 0, 0.75),
+                0 0 30px rgba(255, 77, 109, 0.25),
+                inset 0 3px 8px rgba(255, 255, 255, 0.3),
+                inset 0 -12px 25px rgba(0, 0, 0, 0.5);
+            border: 1.5px solid rgba(255, 215, 120, 0.4);
+            border-top: none;
+            overflow: hidden;
+            z-index: 2;
+            transition: box-shadow 0.6s ease;
+        }
+
+        /* Dây ruy-băng lụa trên thân hộp */
+        .body-ribbon-v {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 32px;
+            height: 100%;
+            background: linear-gradient(90deg, #b8860b 0%, #e6ca65 20%, #fff6d6 50%, #e6ca65 80%, #996515 100%);
+            box-shadow: inset 0 0 4px rgba(255, 255, 255, 0.8), 0 0 12px rgba(255, 209, 102, 0.45);
+            border-left: 1px solid rgba(255, 255, 255, 0.35);
+            border-right: 1px solid rgba(138, 90, 10, 0.35);
+            transition: transform 0.6s ease, opacity 0.5s ease;
+        }
+
+        .body-ribbon-h {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            transform: translateY(-50%);
+            width: 100%;
+            height: 30px;
+            background: linear-gradient(180deg, #b8860b 0%, #e6ca65 20%, #fff6d6 50%, #e6ca65 80%, #996515 100%);
+            box-shadow: inset 0 0 4px rgba(255, 255, 255, 0.8), 0 0 12px rgba(255, 209, 102, 0.45);
+            border-top: 1px solid rgba(255, 255, 255, 0.35);
+            border-bottom: 1px solid rgba(138, 90, 10, 0.35);
+            transition: transform 0.6s ease, opacity 0.5s ease;
+        }
+
+        /* Ánh sáng ma thuật bên trong hộp quà (khi mở nắp sẽ rực sáng) */
+        .box-interior-light {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 50% 20%, rgba(255, 243, 176, 0.95) 0%, rgba(255, 209, 102, 0.8) 35%, rgba(255, 77, 109, 0) 70%);
+            opacity: 0;
+            transition: opacity 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+            pointer-events: none;
+            z-index: 10;
+        }
+
+        /* ─── 4. CHÚ THÍCH HƯỚNG DẪN ẤN VÀO HỘP QUÀ ─── */
+        .gift-instruction-wrap {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            pointer-events: auto;
+            cursor: pointer;
+            animation: bouncePrompt 2.2s ease-in-out infinite;
+            transition: opacity 0.4s ease, transform 0.3s;
+            z-index: 20;
+        }
+
+        .gift-instruction-wrap:hover {
+            transform: translateX(-50%) scale(1.05);
+        }
+
+        .inst-hand {
+            font-size: 34px;
+            filter: drop-shadow(0 4px 12px rgba(255, 209, 102, 0.8));
+            margin-bottom: 6px;
+            animation: pointFinger 1.4s ease-in-out infinite;
+        }
+
+        .inst-badge {
+            background: linear-gradient(135deg, rgba(233, 30, 99, 0.95), rgba(255, 117, 140, 0.95));
+            border: 2px solid rgba(255, 215, 120, 0.85);
+            padding: 10px 28px;
+            border-radius: 30px;
+            font-size: 16px;
+            font-weight: 700;
+            color: #ffffff;
+            box-shadow: 0 8px 30px rgba(219, 39, 119, 0.6), 0 0 25px rgba(255, 209, 102, 0.5);
+            letter-spacing: 0.5px;
+            white-space: nowrap;
+        }
+
+        .inst-sub {
+            font-size: 13px;
+            color: #ffd1dc;
+            margin-top: 8px;
+            opacity: 0.95;
+            text-shadow: 0 1px 4px rgba(0, 0, 0, 0.8);
+            letter-spacing: 0.3px;
+        }
+
+        /* ─── HIỆU ỨNG KHI ĐANG MỞ QUÀ (UNBOXING ANIMATION) ─── */
+        /* Bước 1: Mở dây quà */
+        .luxury-stage.untying .satin-bow-wrap {
+            transform: translateX(-50%) translateY(-35px) scale(0.2) rotate(45deg);
+            opacity: 0;
+        }
+
+        .luxury-stage.untying .lid-ribbon-v,
+        .luxury-stage.untying .body-ribbon-v {
+            transform: translateX(-50%) scaleX(0);
+            opacity: 0;
+        }
+
+        .luxury-stage.untying .lid-ribbon-h,
+        .luxury-stage.untying .body-ribbon-h {
+            transform: translateY(-50%) scaleY(0);
+            opacity: 0;
+        }
+
+        /* Bước 2: Mở nắp hộp quà */
+        .luxury-stage.opened .lid-assembly {
+            transform: translateX(-50%) translateY(-110px) rotate(-18deg) scale(1.08);
+            opacity: 0;
+        }
+
+        .luxury-stage.opened .box-interior-light {
+            opacity: 1;
+        }
+
+        .luxury-stage.opened .box-body-wrap {
+            box-shadow: 0 0 70px rgba(255, 243, 176, 0.9), 0 0 120px rgba(255, 77, 109, 0.7);
+        }
+
+        /* Lớp phủ loé sáng warp-speed khi chuyển trang */
+        #warp-overlay {
+            position: fixed;
+            inset: 0;
+            background: #ffffff;
+            opacity: 0;
+            pointer-events: none;
+            z-index: 1000;
+            transition: opacity 0.85s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        #warp-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        /* Nút phát nhạc nền */
+        .music-toggle-btn {
+            position: fixed;
+            top: 20px;
+            right: 25px;
+            z-index: 100;
+            background: rgba(255, 255, 255, 0.12);
+            backdrop-filter: blur(8px);
+            border: 1.5px solid rgba(255, 209, 102, 0.4);
+            color: #fff;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 18px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+            transition: transform 0.2s, background 0.2s;
+            pointer-events: auto;
+        }
+
+        .music-toggle-btn:hover {
+            transform: scale(1.1);
+            background: rgba(255, 77, 109, 0.4);
+        }
+
+        .music-toggle-btn.playing {
+            animation: spinDisk 4s linear infinite;
+        }
+
+        /* Khóa màn hình xoay ngang */
+        .landscape-blocker {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(10, 6, 20, 0.98);
+            z-index: 99999;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 30px;
+        }
+
+        .lb-icon {
+            font-size: 50px;
+            margin-bottom: 15px;
+            animation: rotatePhone 2s ease-in-out infinite;
+        }
+
+        .lb-title {
+            font-size: 22px;
+            color: #ff4d6d;
+            margin-bottom: 10px;
+        }
+
+        .lb-desc {
+            font-size: 14px;
+            color: #ffb3c6;
+            max-width: 380px;
+            line-height: 1.5;
+        }
+
+        /* Animations */
+        @keyframes gentleHover {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-12px) rotate(1deg); }
+        }
+
+        @keyframes pulseHalo {
+            0%, 100% { transform: scale(1); opacity: 0.55; }
+            50% { transform: scale(1.22); opacity: 0.95; }
+        }
+
+        @keyframes floatSparkle {
+            0%, 100% { transform: translateY(0) scale(0.95); opacity: 0.6; }
+            50% { transform: translateY(-10px) scale(1.18); opacity: 1; }
+        }
+
+        @keyframes pointFinger {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+        }
+
+        @keyframes bouncePrompt {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(-6px); }
+        }
+
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-25px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes spinDisk {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        @keyframes rotatePhone {
+            0%, 100% { transform: rotate(0deg); }
+            50% { transform: rotate(-90deg); }
+        }
+
+        /* Tối ưu màn hình điện thoại xoay ngang */
+        @media (max-height: 520px) and (orientation: landscape) {
+            .gift-header {
+                margin-top: 2px;
+            }
+            .gift-sub-badge {
+                font-size: 11px;
+                padding: 3px 14px;
+                margin-bottom: 4px;
+            }
+            .gift-main-title {
+                font-size: 20px;
+            }
+            .luxury-stage {
+                transform: translate(-50%, -46%) scale(0.8);
+            }
+            .luxury-stage:hover {
+                transform: translate(-50%, -48%) scale(0.85);
+            }
+            .gift-instruction-wrap {
+                bottom: 12px;
+            }
+            .inst-hand {
+                font-size: 24px;
+                margin-bottom: 2px;
+            }
+            .inst-badge {
+                font-size: 13px;
+                padding: 6px 18px;
+            }
+            .inst-sub {
+                font-size: 11px;
+                margin-top: 3px;
+            }
+        }
+
+        /* Khóa dọc trên mobile */
+        @media (max-width: 900px) and (orientation: portrait) {
+            .landscape-blocker {
+                display: flex;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Màn hình nhắc nhở xoay ngang -->
+    <div class="landscape-blocker" id="landscape-blocker">
+        <div class="lb-icon">🔄</div>
+        <h2 class="lb-title">Vui Lòng Xoay Ngang Màn Hình</h2>
+        <p class="lb-desc">Không gian vũ trụ và hộp quà lung linh, trọn vẹn nhất khi màn hình ở chế độ nằm ngang ✨</p>
+    </div>
+
+    <!-- Canvas Three.js hiển thị vũ trụ sao 3D nền -->
+    <canvas id="galaxy-canvas"></canvas>
+    <div class="nebula-glow"></div>
+
+    <!-- Lớp phủ loé sáng warp-speed khi chuyển trang -->
+    <div id="warp-overlay"></div>
+
+    <!-- Nút phát nhạc -->
+    <button id="music-btn" class="music-toggle-btn" title="Bật/Tắt Nhạc">
+        <i class="fas fa-music"></i>
+    </button>
+    <audio id="bg-audio" loop src="a.mp3"></audio>
+
+    <!-- Khung chính toàn màn hình -->
+    <div class="gift-page-wrapper">
+        
+        <!-- Tiêu đề phía trên -->
+        <header class="gift-header">
+            <div class="gift-sub-badge">
+                <span>✨</span> Món Quà Vũ Trụ Kỷ Niệm <span>✨</span>
+            </div>
+            <h1 class="gift-main-title">
+                Dành Riêng Cho <span>Chị Trinh</span> 🎉
+            </h1>
+        </header>
+
+        <!-- SÂN KHẤU HỘP QUÀ NHUNG & NƠ LỤA SANG TRỌNG TRUNG TÂM -->
+        <div class="luxury-stage" id="luxury-gift-stage" onclick="handleLuxuryGiftClick()">
+            
+            <!-- Quầng sáng hào quang tỏa ánh vàng hồng -->
+            <div class="aura-halo"></div>
+
+            <!-- Các hạt sao & ngọc lấp lánh bay quanh hộp -->
+            <span class="sparkle-orb sp-top-l">✨</span>
+            <span class="sparkle-orb sp-top-r">💖</span>
+            <span class="sparkle-orb sp-bot-l">🌟</span>
+            <span class="sparkle-orb sp-bot-r">✨</span>
+
+            <!-- Khối Hộp Quà 3D Mềm Mại -->
+            <div class="gift-container-3d">
+                
+                <!-- BỘ NẮP HỘP VÀ NƠ LỤA -->
+                <div class="lid-assembly" id="lid-assembly">
+                    
+                    <!-- NƠ LỤA SATIN 3D TINH XẢO KIỂU PHÁP -->
+                    <div class="satin-bow-wrap" id="satin-bow">
+                        <!-- 4 Cánh nơ uốn cong bồng bềnh -->
+                        <div class="bow-wing wing-back-left"></div>
+                        <div class="bow-wing wing-back-right"></div>
+                        <div class="bow-wing wing-front-left"></div>
+                        <div class="bow-wing wing-front-right"></div>
+
+                        <!-- Nút thắt nơ trung tâm -->
+                        <div class="bow-knot"></div>
+
+                        <!-- 2 Dải lụa đuôi cá buông rủ -->
+                        <div class="ribbon-streamer streamer-left"></div>
+                        <div class="ribbon-streamer streamer-right"></div>
+                    </div>
+
+                    <!-- Nắp Hộp Nhung -->
+                    <div class="lid-box">
+                        <div class="lid-ribbon-v"></div>
+                        <div class="lid-ribbon-h"></div>
+                        <div class="lid-gold-trim"></div>
+                    </div>
+                </div>
+
+                <!-- THÂN HỘP QUÀ NHUNG ĐỎ RUBY QUÝ PHÁI -->
+                <div class="box-body-wrap" id="box-body">
+                    <!-- Ánh sáng hoàng kim bừng sáng khi mở nắp -->
+                    <div class="box-interior-light" id="interior-light"></div>
+
+                    <!-- Ruy băng lụa vàng kim bọc thân -->
+                    <div class="body-ribbon-v"></div>
+                    <div class="body-ribbon-h"></div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- CHÚ THÍCH HƯỚNG DẪN ẤN VÀO HỘP QUÀ (ĐÃ XÓA BỎ NÚT MỞ QUÀ) -->
+        <div class="gift-instruction-wrap" id="gift-instruction" onclick="handleLuxuryGiftClick()">
+            <div class="inst-hand">👆</div>
+            <div class="inst-badge">✨ Ấn trực tiếp vào hộp quà để mở ✨</div>
+            <div class="inst-sub">Chạm nhẹ để tháo dây nơ lụa & mở quà bí mật 🎁</div>
+        </div>
+
+    </div>
+
+    <!-- Thư viện Three.js và Confetti -->
+    <script src="./js/libs/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+    <script>
+        const NEXT_PAGE = "galaxy.html";
+
+        // === 1. TẠO DẢI NGÂN HÀ VŨ TRỤ 3D VỚI THREE.JS ===
+        let scene, camera, renderer, starField;
+        const canvas = document.getElementById("galaxy-canvas");
+
+        function initGalaxySpace() {
+            scene = new THREE.Scene();
+            scene.fog = new THREE.FogExp2(0x08030f, 0.001);
+
+            camera = new THREE.PerspectiveCamera(55, window.innerWidth / window.innerHeight, 0.1, 2000);
+            camera.position.z = 450;
+
+            renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true, antialias: true });
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+            // Tạo các ngôi sao vũ trụ đa sắc màu
+            const starCount = 3600;
+            const starGeo = new THREE.BufferGeometry();
+            const positions = new Float32Array(starCount * 3);
+            const colors = new Float32Array(starCount * 3);
+
+            const palette = [
+                new THREE.Color("#ff4d6d"),
+                new THREE.Color("#ffd166"),
+                new THREE.Color("#c77dff"),
+                new THREE.Color("#00f5d4"),
+                new THREE.Color("#ffffff")
+            ];
+
+            for (let i = 0; i < starCount; i++) {
+                const radius = Math.random() * 950 + 50;
+                const angle = Math.random() * Math.PI * 2;
+                const y = (Math.random() - 0.5) * 600;
+
+                positions[i * 3] = Math.cos(angle) * radius;
+                positions[i * 3 + 1] = y;
+                positions[i * 3 + 2] = Math.sin(angle) * radius;
+
+                const col = palette[Math.floor(Math.random() * palette.length)];
+                colors[i * 3] = col.r;
+                colors[i * 3 + 1] = col.g;
+                colors[i * 3 + 2] = col.b;
+            }
+
+            starGeo.setAttribute("position", new THREE.BufferAttribute(positions, 3));
+            starGeo.setAttribute("color", new THREE.BufferAttribute(colors, 3));
+
+            const canvasStar = document.createElement("canvas");
+            canvasStar.width = 32;
+            canvasStar.height = 32;
+            const ctx = canvasStar.getContext("2d");
+            const grad = ctx.createRadialGradient(16, 16, 0, 16, 16, 16);
+            grad.addColorStop(0, "rgba(255,255,255,1)");
+            grad.addColorStop(0.35, "rgba(255,255,255,0.85)");
+            grad.addColorStop(0.8, "rgba(255,255,255,0.15)");
+            grad.addColorStop(1, "rgba(255,255,255,0)");
+            ctx.fillStyle = grad;
+            ctx.fillRect(0, 0, 32, 32);
+
+            const starTexture = new THREE.CanvasTexture(canvasStar);
+            const starMat = new THREE.PointsMaterial({
+                size: 4.8,
+                map: starTexture,
+                vertexColors: true,
+                transparent: true,
+                blending: THREE.AdditiveBlending,
+                depthWrite: false
+            });
+
+            starField = new THREE.Points(starGeo, starMat);
+            scene.add(starField);
+
+            window.addEventListener("resize", onResize);
+            animate();
+        }
+
+        function onResize() {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        }
+
+        function animate() {
+            requestAnimationFrame(animate);
+            if (starField) {
+                starField.rotation.y += 0.0012;
+            }
+            renderer.render(scene, camera);
+        }
+
+        // === 2. ÂM THANH MỀM MẠI, TINH TẾ (WEB AUDIO API) ===
+        let audioCtx = null;
+        function getAudioContext() {
+            if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            if (audioCtx.state === "suspended") audioCtx.resume();
+            return audioCtx;
+        }
+
+        // Tiếng lụa satin tháo ruy-băng êm ái
+        function playSilkUntieSound() {
+            try {
+                const ctx = getAudioContext();
+                const now = ctx.currentTime;
+                const osc = ctx.createOscillator();
+                const gain = ctx.createGain();
+                osc.type = "sine";
+                osc.frequency.setValueAtTime(520, now);
+                osc.frequency.exponentialRampToValueAtTime(1400, now + 0.6);
+                gain.gain.setValueAtTime(0.18, now);
+                gain.gain.exponentialRampToValueAtTime(0.001, now + 0.65);
+                osc.connect(gain);
+                gain.connect(ctx.destination);
+                osc.start(now);
+                osc.stop(now + 0.7);
+            } catch (e) {}
+        }
+
+        // Tiếng chuông ngọc mở nắp hộp sang trọng
+        function playChimeOpenSound() {
+            try {
+                const ctx = getAudioContext();
+                const now = ctx.currentTime;
+                // Hợp âm thiên đường C6, E6, G6, B6, C7
+                const freqs = [1046.50, 1318.51, 1567.98, 1975.53, 2093.00];
+                freqs.forEach((freq, idx) => {
+                    const osc = ctx.createOscillator();
+                    const gain = ctx.createGain();
+                    osc.type = "triangle";
+                    osc.frequency.setValueAtTime(freq, now + idx * 0.09);
+                    gain.gain.setValueAtTime(0.24, now + idx * 0.09);
+                    gain.gain.exponentialRampToValueAtTime(0.001, now + idx * 0.09 + 0.95);
+                    osc.connect(gain);
+                    gain.connect(ctx.destination);
+                    osc.start(now + idx * 0.09);
+                    osc.stop(now + idx * 0.09 + 1.0);
+                });
+            } catch (e) {}
+        }
+
+        // === 3. NHẠC NỀN ===
+        const bgAudio = document.getElementById("bg-audio");
+        const musicBtn = document.getElementById("music-btn");
+
+        function toggleMusic() {
+            if (!bgAudio) return;
+            if (bgAudio.paused) {
+                bgAudio.play().then(() => musicBtn.classList.add("playing")).catch(() => {});
+            } else {
+                bgAudio.pause();
+                musicBtn.classList.remove("playing");
+            }
+        }
+        if (musicBtn) musicBtn.addEventListener("click", toggleMusic);
+
+        function tryAutoplay() {
+            if (bgAudio && bgAudio.paused) {
+                bgAudio.play().then(() => musicBtn.classList.add("playing")).catch(() => {});
+            }
+            document.removeEventListener("click", tryAutoplay);
+            document.removeEventListener("touchstart", tryAutoplay);
+        }
+        document.addEventListener("click", tryAutoplay);
+        document.addEventListener("touchstart", tryAutoplay);
+
+        // === 4. CHUỖI HIỆU ỨNG: MỞ DÂY NƠ LỤA -> MỞ NẮP HỘP NHUNG -> BẮN PHÁO HOA -> CHUYỂN TRANG ===
+        let isOpening = false;
+        function handleLuxuryGiftClick() {
+            if (isOpening) return;
+            isOpening = true;
+
+            const stage = document.getElementById("luxury-gift-stage");
+            const instruction = document.getElementById("gift-instruction");
+
+            // Ẩn mượt mà chú thích hướng dẫn
+            if (instruction) {
+                instruction.style.opacity = "0";
+                instruction.style.pointerEvents = "none";
+            }
+
+            // ══════════════════════════════════════════════
+            // BƯỚC 1: HIỆU ỨNG MỞ DÂY RUY-BĂNG & NƠ LỤA (0.0s - 0.75s)
+            // ══════════════════════════════════════════════
+            playSilkUntieSound();
+            stage.classList.add("untying");
+
+            // ══════════════════════════════════════════════
+            // BƯỚC 2: HIỆU ỨNG MỞ NẮP HỘP QUÀ NHUNG (0.75s - 1.8s)
+            // ══════════════════════════════════════════════
+            setTimeout(() => {
+                playChimeOpenSound();
+                stage.classList.add("opened");
+
+                // Bắn pháo hoa confetti lấp lánh như bụi sao
+                if (typeof confetti === "function") {
+                    confetti({
+                        particleCount: 200,
+                        spread: 120,
+                        origin: { y: 0.52 },
+                        colors: ["#ffd166", "#ff4d6d", "#00f5d4", "#c77dff", "#ffffff"]
+                    });
+                    setTimeout(() => {
+                        confetti({
+                            particleCount: 150,
+                            spread: 90,
+                            origin: { y: 0.46 },
+                            colors: ["#ffd166", "#ff758c", "#ffffff"]
+                        });
+                    }, 300);
+                }
+
+                // ══════════════════════════════════════════════
+                // BƯỚC 3: MÀN HÌNH LOÉ SÁNG & CHUYỂN TRANG GALAXY (2.3s - 3.0s)
+                // ══════════════════════════════════════════════
+                setTimeout(() => {
+                    const warp = document.getElementById("warp-overlay");
+                    if (warp) warp.classList.add("active");
+                }, 1000);
+
+                setTimeout(() => {
+                    window.location.href = NEXT_PAGE;
+                }, 1800);
+
+            }, 750);
+        }
+        window.handleLuxuryGiftClick = handleLuxuryGiftClick;
+
+        window.addEventListener("DOMContentLoaded", () => {
+            initGalaxySpace();
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,1713 @@
+
+
+        :root {
+
+            --primary: #ff4d6d;
+
+            --secondary: #ff8fa3;
+
+            --bg-dark: #0f172a;
+
+            --glass: rgba(255, 255, 255, 0.1);
+
+            --glass-border: rgba(255, 255, 255, 0.2);
+
+            --text-glow: 0 0 10px rgba(255, 77, 109, 0.5);
+
+        }
+
+
+
+        * {
+
+            margin: 0;
+
+            padding: 0;
+
+            box-sizing: border-box;
+
+        }
+
+
+
+        body {
+
+            font-family: "Mali", cursive;
+
+            background: radial-gradient(circle at center, #2e1020 0%, #0f172a 100%);
+
+            color: white;
+
+            height: 100vh;
+
+            overflow: hidden;
+
+            display: flex;
+
+            justify-content: center;
+
+            align-items: center;
+
+        }
+
+
+
+        /* Canvas Background */
+
+        #bg-canvas {
+
+            position: absolute;
+
+            top: 0;
+
+            left: 0;
+
+            width: 100%;
+
+            height: 100%;
+
+            z-index: 0;
+
+            pointer-events: none;
+
+        }
+
+
+
+        /* Music Player Floating */
+
+        .music-control {
+            display: none !important;
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            z-index: 100;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 10px;
+            border-radius: 50px;
+            border: 1px solid var(--glass-border);
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+        }
+
+
+
+        .music-control:hover {
+
+            background: rgba(255, 255, 255, 0.2);
+
+            transform: scale(1.05);
+
+        }
+
+
+
+        .disk {
+
+            width: 40px;
+
+            height: 40px;
+
+            border-radius: 50%;
+
+            background: url('../assets/valentine/disk.png') center/cover;
+
+            animation: spin 3s linear infinite;
+
+            animation-play-state: paused;
+
+        }
+
+
+
+        .disk.playing {
+
+            animation-play-state: running;
+
+        }
+
+
+
+        @keyframes spin {
+
+            100% {
+
+                transform: rotate(360deg);
+
+            }
+
+        }
+
+
+
+        /* Screens */
+
+        .screen {
+
+            position: absolute;
+
+            width: 100%;
+
+            height: 100%;
+
+            display: flex;
+
+            justify-content: center;
+
+            align-items: center;
+
+            transition: all 0.8s ease-in-out;
+
+            opacity: 0;
+
+            visibility: hidden;
+
+            z-index: 1;
+
+        }
+
+
+
+        .screen.active {
+
+            opacity: 1;
+
+            visibility: visible;
+
+            z-index: 10;
+
+        }
+
+
+
+        /* === LOCK SCREEN PRO === */
+
+        .lock-container {
+
+            text-align: center;
+
+            background: rgba(255, 255, 255, 0.05);
+
+            padding: 40px;
+
+            margin: auto 10px;
+
+            border-radius: 30px;
+
+            backdrop-filter: blur(20px);
+
+            border: 1px solid rgba(255, 255, 255, 0.1);
+
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+
+            transform: translateY(0);
+
+            animation: float 6s ease-in-out infinite;
+
+        }
+
+
+
+        @keyframes float {
+
+
+
+            0%,
+
+            100% {
+
+                transform: translateY(0);
+
+            }
+
+
+
+            50% {
+
+                transform: translateY(-10px);
+
+            }
+
+        }
+
+
+
+        .lock-icon {
+
+            font-size: 60px;
+
+            color: var(--primary);
+
+            margin-bottom: 20px;
+
+            filter: drop-shadow(0 0 15px var(--primary));
+
+            animation: beat 1.5s infinite;
+
+        }
+
+
+
+        @keyframes beat {
+
+
+
+            0%,
+
+            100% {
+
+                transform: scale(1);
+
+            }
+
+
+
+            50% {
+
+                transform: scale(1.2);
+
+            }
+
+        }
+
+
+
+        .title {
+
+            font-family: "Mali", cursive;
+
+            font-size: 2em;
+
+            margin-bottom: 30px;
+
+            background: linear-gradient(to right, #ff9a9e, #fecfef);
+
+            -webkit-background-clip: text;
+
+            -webkit-text-fill-color: transparent;
+
+            text-shadow: 0 0 20px rgba(255, 77, 109, 0.3);
+
+        }
+
+
+
+        .main-title {
+
+            font-family: "Mali", cursive;
+
+            font-size: 1.8em;
+
+            margin-bottom: 30px;
+
+            background: linear-gradient(to right, #ff9a9e, #fecfef);
+
+            -webkit-background-clip: text;
+
+            -webkit-text-fill-color: transparent;
+
+            text-shadow: 0 0 20px rgba(255, 77, 109, 0.3);
+
+        }
+
+
+
+        .pass-dots {
+
+            display: flex;
+
+            justify-content: center;
+
+            gap: 15px;
+
+            margin-bottom: 30px;
+
+        }
+
+
+
+        .dot {
+
+            width: 20px;
+
+            height: 20px;
+
+            border-radius: 50%;
+
+            background: rgba(255, 255, 255, 0.2);
+
+            border: 2px solid rgba(255, 255, 255, 0.5);
+
+            transition: all 0.3s;
+
+        }
+
+
+
+        .dot.filled {
+
+            background: var(--primary);
+
+            box-shadow: 0 0 15px var(--primary);
+
+            border-color: var(--primary);
+
+        }
+
+
+
+        .dot.error {
+
+            background: #ff3333;
+
+            animation: shake 0.4s;
+
+        }
+
+
+
+        .numpad {
+
+            display: grid;
+
+            grid-template-columns: repeat(3, 1fr);
+
+            gap: 15px;
+
+            max-width: 250px;
+
+            margin: 0 auto;
+
+        }
+
+
+
+        .num-btn {
+
+            background: rgba(255, 255, 255, 0.1);
+
+            border: none;
+
+            color: white;
+
+            font-size: 20px;
+
+            padding: 15px;
+
+            border-radius: 15px;
+
+            cursor: pointer;
+
+            transition: transform 0.15s cubic-bezier(0.34, 1.56, 0.64, 1), background 0.2s, opacity 0.12s;
+            user-select: none;
+            -webkit-user-select: none;
+
+            font-family: 'Quicksand', sans-serif;
+
+        }
+
+
+
+        .num-btn:hover {
+
+            background: rgba(255, 255, 255, 0.3);
+
+            transform: scale(1.1);
+
+        }
+
+
+
+        .num-btn:active {
+
+            transform: scale(0.95);
+
+        }
+
+
+
+        .num-btn.shuffling {
+            transform: scale(0.75);
+            opacity: 0.35;
+        }
+
+        .num-btn.num-decor {
+            cursor: pointer;
+            font-size: 22px;
+        }
+
+        .num-btn.num-decor:hover {
+            transform: rotate(15deg) scale(1.15);
+        }
+
+        .num-btn.num-clear {
+            color: #ff6b8b;
+        }
+
+        /* === CARD SCREEN ULTRA === */
+
+        .card-wrapper {
+
+            display: flex;
+
+            width: 900px;
+
+            height: 500px;
+
+            background: rgba(20, 20, 30, 0.6);
+
+            backdrop-filter: blur(25px);
+
+            border-radius: 25px;
+
+            border: 1px solid rgba(255, 255, 255, 0.15);
+
+            box-shadow: 0 0 80px rgba(255, 77, 109, 0.15);
+
+            overflow: hidden;
+
+            position: relative;
+
+        }
+
+
+
+        .card-left {
+
+            flex: 1;
+
+            padding: 40px;
+
+            display: flex;
+
+            flex-direction: column;
+
+            justify-content: center;
+
+            border-right: 1px solid rgba(255, 255, 255, 0.1);
+
+        }
+
+
+
+        .card-right {
+
+            flex: 1;
+
+            position: relative;
+
+            display: flex;
+
+            justify-content: center;
+
+            align-items: center;
+
+            background: rgba(0, 0, 0, 0.2);
+
+            font-family: "Mali", cursive;
+
+        }
+
+
+
+        .typing-text {
+
+            font-family: "Mali", cursive;
+
+            font-size: 16x;
+
+            line-height: 1.6;
+
+            color: #ffdae0;
+
+            min-height: 150px;
+
+            white-space: pre-wrap;
+
+        }
+
+
+
+        .cursor {
+
+            display: inline-block;
+
+            width: 2px;
+
+            height: 20px;
+
+            background: white;
+
+            animation: blink 1s infinite;
+
+        }
+
+
+
+        @keyframes blink {
+
+            50% {
+
+                opacity: 0;
+
+            }
+
+        }
+
+
+
+        /* Scratch Area Pro */
+
+        .scratch-box {
+
+            position: relative;
+
+            width: 320px;
+
+            height: 400px;
+
+            border-radius: 15px;
+
+            overflow: hidden;
+
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+
+        }
+
+
+
+        canvas#scratch {
+            display: block;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 10;
+            cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="%23ffd166"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="7" fill="%23ff4d6d"/></svg>') 16 16, crosshair;
+            touch-action: none;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            transition: opacity 0.6s ease;
+        }
+
+
+
+        /* Stacked Gallery */
+
+        .hidden-gallery {
+
+            position: absolute;
+
+            top: 0;
+
+            left: 0;
+
+            width: 100%;
+
+            height: 100%;
+
+            z-index: 1;
+
+            background: #fff;
+
+            display: flex;
+
+            justify-content: center;
+
+            align-items: center;
+
+            overflow: hidden;
+
+            font-family: "Mali", cursive;
+
+        }
+
+
+
+        .photo-stack {
+
+            position: absolute;
+
+            width: 90%;
+
+            height: 90%;
+
+            object-fit: cover;
+
+            border-radius: 10px;
+
+            border: 5px solid white;
+
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+
+            transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+
+            cursor: pointer;
+
+        }
+
+
+
+        /* Animation class for flying away photo */
+
+        .fly-away {
+
+            transform: translateX(200px) rotate(45deg) !important;
+
+            opacity: 0 !important;
+
+        }
+
+
+
+        @keyframes shake {
+
+
+
+            0%,
+
+            100% {
+
+                transform: translateX(0);
+
+            }
+
+
+
+            25% {
+
+                transform: translateX(-10px);
+
+            }
+
+
+
+            75% {
+
+                transform: translateX(10px);
+
+            }
+
+        }
+
+
+
+        /* ============================================
+           RESPONSIVE — PC / iPad / Mobile
+           ============================================ */
+
+        /* --- iPad Landscape & small laptops (1024px) --- */
+        @media (max-width: 1024px) {
+            .card-wrapper {
+                width: 95%;
+                height: auto;
+                min-height: 460px;
+                max-height: 90vh;
+            }
+            .lock-container {
+                padding: 32px 28px;
+            }
+        }
+
+        /* --- iPad Portrait & tablets (900px) --- */
+        @media (max-width: 900px) {
+            .card-wrapper {
+                flex-direction: column;
+                width: 95%;
+                height: 85vh;
+                overflow-y: auto;
+            }
+            .card-left {
+                padding: 25px;
+                flex: none;
+            }
+            .card-right {
+                flex: 1;
+                padding: 20px;
+                min-height: 380px;
+            }
+            .title {
+                font-size: 1.65em;
+            }
+            .main-title {
+                font-size: 1.5em;
+                margin-bottom: 18px;
+            }
+            .typing-text {
+                font-size: 15px;
+                min-height: 120px;
+            }
+            .scratch-box {
+                width: 280px;
+                height: 350px;
+            }
+            .modal-card {
+                padding: 24px 18px;
+                max-width: 380px;
+            }
+            .modal-title {
+                font-size: 20px;
+            }
+            #speech-text {
+                font-size: 14px;
+            }
+        }
+
+        /* --- Large phones / phablets (680px) --- */
+        @media (max-width: 680px) {
+            body {
+                height: 100dvh;
+            }
+            .lock-container {
+                padding: 24px 18px;
+                border-radius: 22px;
+                margin: auto 8px;
+            }
+            .title {
+                font-size: 1.35em;
+                margin-bottom: 20px;
+            }
+            .pass-dots {
+                gap: 12px;
+                margin-bottom: 22px;
+            }
+            .dot {
+                width: 17px;
+                height: 17px;
+            }
+            .numpad {
+                max-width: 230px;
+                gap: 12px;
+            }
+            .num-btn {
+                font-size: 18px;
+                padding: 13px;
+                border-radius: 13px;
+            }
+            .card-wrapper {
+                width: 100%;
+                height: auto;
+                min-height: unset;
+                max-height: none;
+                border-radius: 0;
+                border: none;
+            }
+            .card-left {
+                padding: 20px 16px;
+            }
+            .card-right {
+                padding: 14px;
+                min-height: 340px;
+            }
+            .main-title {
+                font-size: 1.3em;
+                margin-bottom: 14px;
+            }
+            .typing-text {
+                font-size: 14px;
+                min-height: 100px;
+                line-height: 1.55;
+            }
+            .scratch-box {
+                width: 260px;
+                height: 320px;
+            }
+            .modal-card {
+                max-width: 340px;
+                padding: 22px 16px;
+                border-radius: 22px;
+            }
+            .modal-avatar {
+                font-size: 42px;
+            }
+            .modal-title {
+                font-size: 18px;
+                margin-bottom: 12px;
+            }
+            #speech-text {
+                font-size: 13.5px;
+            }
+            .modal-hint {
+                font-size: 12px;
+                margin-bottom: 16px;
+            }
+            .modal-btn {
+                padding: 11px 20px;
+                font-size: 14px;
+            }
+            .gift-icon {
+                font-size: 60px;
+            }
+            .gift-box-title {
+                font-size: 17px;
+            }
+            .gift-box-sub {
+                font-size: 12px;
+            }
+            .gift-box-action {
+                padding: 8px 20px;
+                font-size: 12px;
+            }
+            .pass-error-msg {
+                font-size: 12px;
+                margin-bottom: 14px;
+            }
+        }
+
+        /* --- Standard mobile phones (480px) --- */
+        @media (max-width: 480px) {
+            .lock-container {
+                padding: 20px 14px;
+                border-radius: 20px;
+                box-shadow: 0 12px 35px rgba(0, 0, 0, 0.5);
+            }
+            .title {
+                font-size: 1.15em;
+                margin-bottom: 16px;
+                line-height: 1.4;
+            }
+            .pass-dots {
+                gap: 10px;
+                margin-bottom: 16px;
+            }
+            .dot {
+                width: 15px;
+                height: 15px;
+                border-width: 1.5px;
+            }
+            .numpad {
+                max-width: 210px;
+                gap: 10px;
+            }
+            .num-btn {
+                font-size: 17px;
+                padding: 12px;
+                border-radius: 12px;
+            }
+            .card-left {
+                padding: 16px 12px;
+            }
+            .main-title {
+                font-size: 1.15em;
+                margin-bottom: 12px;
+            }
+            .typing-text {
+                font-size: 13px;
+                min-height: 80px;
+            }
+            .card-right {
+                padding: 10px;
+                min-height: 300px;
+            }
+            .scratch-box {
+                width: 230px;
+                height: 290px;
+                border-radius: 12px;
+            }
+            .modal-overlay {
+                padding: 12px;
+            }
+            .modal-card {
+                max-width: 310px;
+                padding: 18px 14px;
+                border-radius: 20px;
+            }
+            .modal-avatar {
+                font-size: 38px;
+                margin-bottom: 8px;
+            }
+            .modal-title {
+                font-size: 16px;
+                margin-bottom: 10px;
+            }
+            .speech-bubble {
+                padding: 12px 14px;
+                border-radius: 14px;
+                margin-bottom: 12px;
+            }
+            #speech-text {
+                font-size: 13px;
+                line-height: 1.5;
+            }
+            .modal-hint {
+                font-size: 11px;
+                margin-bottom: 14px;
+            }
+            .modal-btn {
+                padding: 10px 18px;
+                font-size: 13px;
+                border-radius: 40px;
+            }
+            .gift-icon {
+                font-size: 52px;
+            }
+            .gift-ribbon {
+                font-size: 22px;
+            }
+            .gift-box-title {
+                font-size: 15px;
+                margin-top: 10px;
+            }
+            .gift-box-sub {
+                font-size: 11px;
+                margin-bottom: 12px;
+            }
+            .gift-box-action {
+                padding: 7px 16px;
+                font-size: 11px;
+            }
+            .photo-progress-badge {
+                font-size: 11px;
+                padding: 5px 10px;
+            }
+            .pass-error-msg {
+                font-size: 11px;
+                margin-top: -8px;
+                margin-bottom: 12px;
+            }
+        }
+
+        /* --- Very small phones (360px) --- */
+        @media (max-width: 360px) {
+            .lock-container {
+                padding: 16px 10px;
+                border-radius: 16px;
+            }
+            .title {
+                font-size: 1em;
+                margin-bottom: 14px;
+            }
+            .numpad {
+                max-width: 190px;
+                gap: 8px;
+            }
+            .num-btn {
+                font-size: 15px;
+                padding: 10px;
+                border-radius: 10px;
+            }
+            .dot {
+                width: 13px;
+                height: 13px;
+            }
+            .modal-card {
+                max-width: 280px;
+                padding: 14px 12px;
+            }
+            .modal-title {
+                font-size: 15px;
+            }
+            .modal-btn {
+                font-size: 12px;
+                padding: 9px 14px;
+            }
+        }
+
+        /* --- Landscape mode on mobile --- */
+        @media (max-height: 500px) and (orientation: landscape) {
+            .lock-container {
+                padding: 14px 20px;
+                animation: none;
+            }
+            .title {
+                font-size: 1.1em;
+                margin-bottom: 10px;
+            }
+            .pass-dots {
+                margin-bottom: 10px;
+            }
+            .dot {
+                width: 14px;
+                height: 14px;
+            }
+            .numpad {
+                max-width: 200px;
+                gap: 8px;
+            }
+            .num-btn {
+                padding: 8px;
+                font-size: 15px;
+            }
+            .pass-error-msg {
+                margin-top: -6px;
+                margin-bottom: 8px;
+                min-height: 18px;
+                font-size: 11px;
+            }
+            .card-wrapper {
+                flex-direction: row;
+                width: 98%;
+                height: 95vh;
+            }
+            .card-left {
+                padding: 14px;
+            }
+            .main-title {
+                font-size: 1.1em;
+                margin-bottom: 8px;
+            }
+            .typing-text {
+                font-size: 12px;
+                min-height: 60px;
+            }
+            .scratch-box {
+                width: 200px;
+                height: 240px;
+            }
+            .modal-card {
+                max-width: 400px;
+                padding: 16px 14px;
+            }
+            .modal-avatar {
+                font-size: 32px;
+                margin-bottom: 6px;
+            }
+            .modal-title {
+                font-size: 15px;
+                margin-bottom: 8px;
+            }
+        }
+
+                /* Hiệu ứng pháo giấy tự chế */
+
+        .confetti-piece {
+
+            position: fixed;
+
+            width: 10px;
+
+            height: 10px;
+
+            z-index: 999;
+
+            pointer-events: none;
+
+            border-radius: 2px;
+
+            animation: confetti-fall linear forwards;
+
+        }
+
+
+
+        @keyframes confetti-fall {
+
+            0% {
+
+                transform: translateY(0) rotate(0deg);
+
+                opacity: 1;
+
+            }
+
+
+
+            100% {
+                transform: translateY(100vh) rotate(720deg);
+                opacity: 0;
+            }
+        }
+
+        /* === HIỆU ỨNG RUNG KHI NHẬP SAI === */
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            20% { transform: translateX(-10px); }
+            40% { transform: translateX(10px); }
+            60% { transform: translateX(-8px); }
+            80% { transform: translateX(8px); }
+        }
+
+        /* === THÔNG BÁO NHẬP SAI MÃ PIN === */
+        .pass-error-msg {
+            min-height: 24px;
+            font-size: 14px;
+            font-weight: 600;
+            color: #ff4d6d;
+            margin-top: -12px;
+            margin-bottom: 20px;
+            text-shadow: 0 0 12px rgba(255, 77, 109, 0.6);
+            transition: all 0.3s ease;
+        }
+
+        .pass-error-msg.active {
+            animation: shake 0.45s ease-in-out;
+        }
+
+        /* === POPUP HIỆN LỜI NÓI KHI NHẬP SAI === */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 10000;
+            background: rgba(10, 8, 20, 0.78);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .modal-card {
+            background: linear-gradient(145deg, rgba(38, 20, 36, 0.95), rgba(18, 12, 28, 0.98));
+            border: 1.5px solid rgba(255, 77, 109, 0.4);
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.7), 0 0 35px rgba(255, 77, 109, 0.3);
+            border-radius: 26px;
+            padding: 30px 24px;
+            max-width: 420px;
+            width: 100%;
+            text-align: center;
+            transform: scale(0.85) translateY(20px);
+            transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .modal-overlay.active .modal-card {
+            transform: scale(1) translateY(0);
+        }
+
+        .modal-avatar {
+            font-size: 50px;
+            line-height: 1;
+            margin-bottom: 12px;
+            filter: drop-shadow(0 4px 12px rgba(255, 77, 109, 0.5));
+            animation: modalAvatarWiggle 2s infinite ease-in-out;
+        }
+
+        @keyframes modalAvatarWiggle {
+            0%, 100% { transform: rotate(0deg) scale(1); }
+            25% { transform: rotate(-8deg) scale(1.08); }
+            75% { transform: rotate(8deg) scale(1.08); }
+        }
+
+        .modal-title {
+            font-size: 22px;
+            font-weight: 700;
+            color: #ff4d6d;
+            margin-bottom: 16px;
+            text-shadow: 0 0 15px rgba(255, 77, 109, 0.5);
+            letter-spacing: 0.5px;
+        }
+
+        .speech-bubble {
+            position: relative;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1.5px dashed rgba(255, 143, 163, 0.35);
+            border-radius: 18px;
+            padding: 16px 18px;
+            margin-bottom: 16px;
+            text-align: left;
+            box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.25);
+        }
+
+        .bubble-icon {
+            color: #ffbe00;
+            font-size: 15px;
+            margin-bottom: 6px;
+            display: block;
+        }
+
+        #speech-text {
+            font-size: 15px;
+            line-height: 1.6;
+            color: #ffffff;
+            font-weight: 600;
+            font-family: 'Mali', cursive, sans-serif;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
+        }
+
+        .modal-hint {
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.65);
+            margin-bottom: 22px;
+            font-style: italic;
+        }
+
+        .modal-btn {
+            background: linear-gradient(135deg, #ff4d6d, #ff758c);
+            border: none;
+            color: #ffffff;
+            padding: 13px 28px;
+            border-radius: 50px;
+            font-family: 'Mali', cursive, sans-serif;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 8px 25px rgba(255, 77, 109, 0.5);
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            justify-content: center;
+            width: 100%;
+        }
+
+        .modal-btn:hover {
+            transform: translateY(-2px) scale(1.02);
+            box-shadow: 0 12px 30px rgba(255, 77, 109, 0.7);
+            background: linear-gradient(135deg, #ff3366, #ff6699);
+        }
+
+        /* === NÚT MỞ HỘP QUÀ NHANH TRÊN THIỆP === */
+        .btn-show-gift-now {
+            margin-top: 14px;
+            background: linear-gradient(135deg, #ff4d6d, #ff758c);
+            border: 1.5px solid rgba(255, 255, 255, 0.4);
+            color: #ffffff;
+            padding: 10px 22px;
+            border-radius: 30px;
+            font-family: 'Mali', cursive, sans-serif;
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(255, 77, 109, 0.45);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+            animation: pulseActionBtn 2.5s infinite;
+        }
+
+        .btn-show-gift-now:hover {
+            transform: translateY(-2px) scale(1.03);
+            box-shadow: 0 8px 25px rgba(255, 77, 109, 0.75);
+            background: linear-gradient(135deg, #ff3366, #ff6699);
+        }
+
+        /* Badge tiến trình ảnh */
+        .photo-progress-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(255, 77, 109, 0.2);
+            border: 1px solid rgba(255, 77, 109, 0.45);
+            color: #ffb3c1;
+            font-size: 13px;
+            font-family: 'Mali', cursive;
+            padding: 6px 14px;
+            border-radius: 20px;
+            margin-top: 12px;
+            transition: all 0.3s ease;
+        }
+
+        .photo-progress-badge.finished {
+            background: rgba(78, 205, 196, 0.25);
+            border-color: rgba(78, 205, 196, 0.7);
+            color: #a8ffeb;
+            font-weight: bold;
+        }
+
+        /* === HỘP QUÀ SINH NHẬT XUẤT HIỆN SAU KHI HẾT ẢNH === */
+        .gift-box-wrapper {
+            position: absolute;
+            inset: 0;
+            z-index: 999;
+            background: radial-gradient(circle at center, rgba(35, 18, 40, 0.96) 0%, rgba(12, 8, 22, 0.98) 100%);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            text-align: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            user-select: none;
+        }
+
+        .gift-box-wrapper.active {
+            display: flex !important;
+            opacity: 1 !important;
+            pointer-events: auto !important;
+            animation: giftFadeIn 0.9s forwards cubic-bezier(0.34, 1.2, 0.64, 1);
+        }
+
+        @keyframes giftFadeIn {
+            0% {
+                opacity: 0;
+                transform: scale(0.82);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .gift-glow-halo {
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle, rgba(255, 77, 109, 0.45) 0%, rgba(255, 190, 0, 0.25) 45%, transparent 70%);
+            border-radius: 50%;
+            filter: blur(18px);
+            animation: haloPulse 2.8s infinite ease-in-out;
+            pointer-events: none;
+        }
+
+        @keyframes haloPulse {
+            0%, 100% { transform: scale(1); opacity: 0.6; }
+            50% { transform: scale(1.35); opacity: 1; }
+        }
+
+        .gift-box-card {
+            position: relative;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 12px;
+            transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .gift-box-card:hover {
+            transform: scale(1.08) translateY(-4px);
+        }
+
+        .gift-sparkles {
+            font-size: 18px;
+            margin-bottom: 6px;
+            letter-spacing: 4px;
+            animation: sparkleTwinkle 1.8s infinite ease-in-out;
+        }
+
+        @keyframes sparkleTwinkle {
+            0%, 100% { transform: scale(0.9); opacity: 0.6; }
+            50% { transform: scale(1.2); opacity: 1; }
+        }
+
+        .gift-icon-wrap {
+            position: relative;
+            display: inline-block;
+            animation: giftBounce 2.4s infinite ease-in-out;
+        }
+
+        .gift-icon {
+            font-size: 78px;
+            line-height: 1;
+            display: block;
+            filter: drop-shadow(0 10px 25px rgba(255, 77, 109, 0.7));
+            transition: transform 0.3s;
+        }
+
+        .gift-box-card:hover .gift-icon {
+            transform: rotate(6deg) scale(1.06);
+        }
+
+        .gift-ribbon {
+            position: absolute;
+            top: -12px;
+            right: -10px;
+            font-size: 28px;
+            filter: drop-shadow(0 3px 6px rgba(0,0,0,0.5));
+            animation: ribbonFloat 2s infinite ease-in-out;
+        }
+
+        @keyframes giftBounce {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            25% { transform: translateY(-8px) rotate(-3deg); }
+            75% { transform: translateY(-4px) rotate(3deg); }
+        }
+
+        @keyframes ribbonFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-6px); }
+        }
+
+        .gift-box-title {
+            font-family: 'Mali', cursive, sans-serif;
+            font-size: 20px;
+            font-weight: 700;
+            color: #ffffff;
+            margin-top: 14px;
+            margin-bottom: 4px;
+            text-shadow: 0 0 15px rgba(255, 77, 109, 0.7);
+            background: linear-gradient(135deg, #ffffff, #ff8fa3, #ffd166);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .gift-box-sub {
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.8);
+            font-family: 'Mali', cursive, sans-serif;
+            margin-bottom: 16px;
+        }
+
+        .gift-box-action {
+            background: linear-gradient(135deg, #ff4d6d, #ff758c);
+            color: #ffffff;
+            padding: 9px 24px;
+            border-radius: 30px;
+            font-size: 13px;
+            font-weight: 700;
+            font-family: 'Mali', cursive, sans-serif;
+            box-shadow: 0 6px 20px rgba(255, 77, 109, 0.5);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            animation: pulseActionBtn 2s infinite;
+        }
+
+        @keyframes pulseActionBtn {
+            0%, 100% { box-shadow: 0 6px 20px rgba(255, 77, 109, 0.5); transform: scale(1); }
+            50% { box-shadow: 0 10px 25px rgba(255, 77, 109, 0.85); transform: scale(1.05); }
+        }
+
+        .gift-box-wrapper.opening .gift-box-card {
+            animation: giftOpenPop 0.8s forwards cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        @keyframes giftOpenPop {
+            0% { transform: scale(1); opacity: 1; }
+            45% { transform: scale(1.3) rotate(-12deg); opacity: 1; }
+            100% { transform: scale(2.2) rotate(20deg); opacity: 0; }
+        }
+
+        .photo-stack.dimmed {
+            filter: blur(2px) brightness(0.65) !important;
+            pointer-events: none !important;
+            cursor: default !important;
+        }
+
+        /* Success Unlock Modal on index.html */
+        .modal-card.success-card {
+            border: 2px solid #ffd166;
+            box-shadow: 0 25px 70px rgba(0, 0, 0, 0.85), 0 0 45px rgba(255, 209, 102, 0.4);
+            background: linear-gradient(145deg, rgba(32, 18, 42, 0.98), rgba(18, 10, 26, 0.99));
+        }
+
+        .success-badge {
+            display: inline-block;
+            background: rgba(255, 209, 102, 0.18);
+            border: 1px solid #ffd166;
+            color: #ffd166;
+            padding: 4px 14px;
+            border-radius: 20px;
+            font-size: 11.5px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            margin-bottom: 12px;
+            text-transform: uppercase;
+        }
+
+        .modal-title.success-title {
+            color: #ffd166;
+            text-shadow: 0 0 18px rgba(255, 209, 102, 0.6);
+            font-size: 21px;
+            margin-bottom: 12px;
+        }
+
+        .speech-bubble.success-bubble {
+            border-left: 3px solid #ffd166;
+            background: rgba(255, 255, 255, 0.06);
+            color: #ffffff;
+            margin-bottom: 16px;
+        }
+
+        .ticket-mini-info {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px dashed rgba(255, 209, 102, 0.4);
+            border-radius: 14px;
+            padding: 12px 14px;
+            margin-bottom: 18px;
+            text-align: left;
+            font-size: 13px;
+        }
+
+        .ticket-info-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 6px;
+            color: #ffdae0;
+        }
+
+        .ticket-info-row:last-child {
+            margin-bottom: 0;
+            padding-top: 6px;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .modal-btn.success-btn {
+            background: linear-gradient(135deg, #ffd166, #ff9f1c);
+            color: #1a0f1e;
+            box-shadow: 0 8px 25px rgba(255, 159, 28, 0.55);
+            font-weight: 700;
+            font-size: 15px;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .modal-btn.success-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 32px rgba(255, 159, 28, 0.75);
+            color: #000;
+        }
+
+
+
+/* ═══════════════════════════════════════════════════════
+   KHÓA BẮT BUỘC XOAY NGANG TRÊN MOBILE
+   Nếu không xoay ngang màn hình thì khóa hoàn toàn không cho chạy
+   ═══════════════════════════════════════════════════════ */
+.landscape-blocker {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100vw;
+    height: 100vh;
+    height: 100dvh;
+    background: radial-gradient(circle at center, rgba(38, 20, 36, 0.98) 0%, rgba(15, 10, 24, 0.99) 70%, #060408 100%);
+    z-index: 9999999;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 20px;
+    box-sizing: border-box;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: none;
+    pointer-events: all;
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+}
+
+/* Chỉ kích hoạt khi là thiết bị màn hình dọc (điện thoại / tablet dọc) */
+@media screen and (orientation: portrait) and (max-width: 900px) {
+    .landscape-blocker {
+        display: flex !important;
+    }
+}
+
+.lb-box {
+    max-width: 360px;
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1.5px solid rgba(255, 77, 109, 0.45);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.85), 0 0 35px rgba(255, 77, 109, 0.3);
+    border-radius: 26px;
+    padding: 30px 20px;
+    box-sizing: border-box;
+}
+
+.lb-phone-wrap {
+    position: relative;
+    width: 86px;
+    height: 86px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 18px;
+}
+
+.lb-phone {
+    width: 38px;
+    height: 64px;
+    border: 3px solid #ff4d6d;
+    border-radius: 8px;
+    background: rgba(255, 77, 109, 0.18);
+    box-shadow: 0 0 25px rgba(255, 77, 109, 0.5);
+    position: relative;
+    animation: lbRotatePhone 2.2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+.lb-phone::before {
+    content: '';
+    position: absolute;
+    top: 4px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 10px;
+    height: 2px;
+    background: #ff8fa3;
+    border-radius: 2px;
+}
+
+.lb-phone::after {
+    content: '';
+    position: absolute;
+    bottom: 4px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 6px;
+    height: 6px;
+    background: #ff8fa3;
+    border-radius: 50%;
+}
+
+.lb-arrow-icon {
+    position: absolute;
+    bottom: 2px;
+    right: 2px;
+    font-size: 24px;
+    filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.8));
+    animation: lbRotateArrow 2.2s linear infinite;
+}
+
+@keyframes lbRotatePhone {
+    0%, 20% {
+        transform: rotate(0deg);
+    }
+    50%, 75% {
+        transform: rotate(-90deg);
+    }
+    100% {
+        transform: rotate(0deg);
+    }
+}
+
+@keyframes lbRotateArrow {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.lb-title {
+    font-family: 'Mali', cursive, sans-serif;
+    font-size: 19px;
+    font-weight: 700;
+    color: #ffd166;
+    text-shadow: 0 0 15px rgba(255, 209, 102, 0.5);
+    margin: 0 0 10px 0;
+}
+
+.lb-desc {
+    font-family: 'Mali', cursive, sans-serif;
+    font-size: 13.5px;
+    line-height: 1.55;
+    color: #ffdae0;
+    margin: 0 0 16px 0;
+}
+
+.lb-badge {
+    background: rgba(255, 77, 109, 0.2);
+    border: 1px dashed rgba(255, 77, 109, 0.6);
+    color: #ffb3c1;
+    font-size: 11.5px;
+    font-weight: 600;
+    padding: 8px 12px;
+    border-radius: 20px;
+    font-family: 'Mali', cursive, sans-serif;
+    line-height: 1.4;
+}

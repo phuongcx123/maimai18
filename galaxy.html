@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Galaxy Love 2.0 - Dải Ngân Hà Tình Yêu</title>
+    <link rel="icon" href="./assets/galaxy/photo1.png" type="image/png">
+    <link rel="stylesheet" href="./css/galaxy.css?v=3.1" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Mali:ital,wght@0,300;0,400;0,600;0,700;1,400&family=Quicksand:wght@500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- Khung hiển thị 3D Galaxy -->
+    <div id="container">
+        <!-- Khóa màn hình dọc trên Mobile - Bắt buộc xoay ngang mới cho chạy -->
+        <div id="landscape-blocker" class="landscape-blocker">
+            <div class="lb-box">
+                <div class="lb-phone-wrap">
+                    <div class="lb-phone"></div>
+                    <div class="lb-arrow-icon">🔄</div>
+                </div>
+                <h2 class="lb-title">Vui Lòng Xoay Ngang Màn Hình</h2>
+                <p class="lb-desc">Trang web được thiết kế tối ưu trên màn hình ngang để ngắm trọn vẹn không gian kỷ niệm và hiệu ứng 3D đẹp nhất.</p>
+                <div class="lb-badge">✨ Hãy bật tự động xoay và nghiêng điện thoại ngang để tiếp tục ✨</div>
+            </div>
+        </div>
+
+        <div id="dark-overlay"></div>
+        <div id="info"></div>
+    </div>
+
+    <!-- Lớp phủ loé sáng warp-speed khi chuyển trang -->
+    <div id="galaxy-warp-overlay" class="galaxy-warp-overlay"></div>
+
+    <!-- Gợi ý chạm vào hành tinh để mở quà tiếp theo -->
+    <div id="planet-gift-prompt" class="planet-gift-prompt" onclick="window.openPlanetNextGift && window.openPlanetNextGift()" title="Chạm vào để mở món quà tiếp theo">
+        <div class="planet-gift-icon">👆</div>
+        <div class="planet-gift-badge">✨ Chạm vào đây để mở quà tiếp theo nhé 🎁 ✨</div>
+        <div class="planet-gift-sub">Ấn vào hành tinh phát sáng ở giữa</div>
+    </div>
+
+    <!-- Thư viện Three.js và OrbitControls cục bộ -->
+    <script src="./js/libs/three.min.js"></script>
+    <script src="./js/libs/OrbitControls.js"></script>
+    <!-- Thư viện pháo hoa confetti -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <!-- Dữ liệu ảnh Base64 an toàn 100% offline (chống lỗi hộp vuông đen trên file:///) -->
+    <script src="./js/photo_assets.js?v=3.1"></script>
+    <!-- Cấu hình danh sách ảnh và chữ của Dải Ngân Hà -->
+    <script src="./js/galaxy_config.js?v=3.1"></script>
+    <!-- Script điều khiển chính Three.js 3D Galaxy -->
+    <script src="./js/galaxy.js"></script>
+
+    <!-- Quản lý hành động phóng to hành tinh & chạm hành tinh mở quà tiếp theo -->
+    <script>
+        (function() {
+            let isZoomedToPlanet = false;
+            let isTransitioningNext = false;
+            let autoZoomTimer = null;
+
+            // Hàm hiển thị & cập nhật nội dung chú thích (cả khi thu nhỏ lẫn khi phóng to)
+            function showPrompt(isZoomed) {
+                const prompt = document.getElementById("planet-gift-prompt");
+                if (!prompt) return;
+                const badge = prompt.querySelector(".planet-gift-badge");
+                const sub = prompt.querySelector(".planet-gift-sub");
+                if (isZoomed) {
+                    if (badge) badge.innerHTML = "✨ Chạm trực tiếp vào hành tinh để mở quà 🎁 ✨";
+                    if (sub) sub.innerHTML = "Ấn vào quả cầu phát sáng ở giữa để chuyển sang quà tiếp theo 🎉";
+                } else {
+                    if (badge) badge.innerHTML = "✨ Chạm vào hành tinh để phóng to & mở quà tiếp theo 🎁 ✨";
+                    if (sub) sub.innerHTML = "Ấn vào hành tinh ở giữa dải ngân hà hoặc chờ tự động 🚀";
+                }
+                prompt.classList.add("active");
+                prompt.style.opacity = "1";
+                prompt.style.pointerEvents = "auto";
+            }
+            window.showPlanetPrompt = showPrompt;
+
+            // Âm thanh chuông thiên hà khi chạm vào hành tinh
+            let audioCtx = null;
+            function playPlanetChime() {
+                try {
+                    if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                    if (audioCtx.state === 'suspended') audioCtx.resume();
+                    const freqs = [523.25, 659.25, 783.99, 1046.50, 1318.51, 1567.98, 2093.00];
+                    freqs.forEach((f, idx) => {
+                        const osc = audioCtx.createOscillator();
+                        const gain = audioCtx.createGain();
+                        osc.type = "triangle";
+                        osc.frequency.setValueAtTime(f, audioCtx.currentTime + idx * 0.08);
+                        gain.gain.setValueAtTime(0.26, audioCtx.currentTime + idx * 0.08);
+                        gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + idx * 0.08 + 0.85);
+                        osc.connect(gain);
+                        gain.connect(audioCtx.destination);
+                        osc.start(audioCtx.currentTime + idx * 0.08);
+                        osc.stop(audioCtx.currentTime + idx * 0.08 + 0.9);
+                    });
+                } catch(e) {}
+            }
+
+            // Tự động bung mở dải ngân hà sau 1 giây nếu người dùng chưa kịp bấm
+            setTimeout(() => {
+                if (typeof window.galaxyStartIntro === "function") {
+                    window.galaxyStartIntro();
+                }
+            }, 1000);
+
+            // Hiển thị ngay gợi ý khi đang ở góc nhìn thu nhỏ ngắm dải ngân hà
+            setTimeout(() => {
+                if (!isZoomedToPlanet && !isTransitioningNext) {
+                    showPrompt(false);
+                }
+            }, 2500);
+
+            // Khi camera intro hoàn tất việc lùi xa (thu nhỏ) để ngắm toàn cảnh dải ngân hà
+            window.onGalaxyIntroFinished = function() {
+                // Đảm bảo chú thích hiển thị rõ ràng khi thu nhỏ ngắm dải ngân hà
+                showPrompt(false);
+
+                // Sau thời gian quy định (mặc định 6s), bắt buộc phóng to tới hành tinh
+                const waitTime = (window.TIME_BEFORE_PLANET_ZOOM || 6) * 1000;
+                autoZoomTimer = setTimeout(() => {
+                    zoomToPlanet();
+                }, waitTime);
+            };
+
+            // Hàm tự động phóng to mượt mà tới hành tinh trung tâm
+            function zoomToPlanet() {
+                if (isZoomedToPlanet || isTransitioningNext) return;
+                isZoomedToPlanet = true;
+                if (autoZoomTimer) clearTimeout(autoZoomTimer);
+
+                const camera = window.galaxyCamera;
+                const controls = window.galaxyControls;
+                if (!camera) return;
+
+                // Tạm thời khóa điều khiển để máy quay zoom mượt mà vào hành tinh
+                if (controls) controls.enabled = false;
+
+                const startPos = camera.position.clone();
+                // Vị trí phóng to sát hành tinh (bán kính hành tinh là 10, cự ly 26 là tuyệt đẹp)
+                const targetPos = new THREE.Vector3(0, 10, 26);
+                let progress = 0;
+
+                function animateZoom() {
+                    progress += 0.022;
+                    const ease = 1 - Math.pow(1 - Math.min(1, progress), 3); // cubic ease out
+                    camera.position.lerpVectors(startPos, targetPos, ease);
+                    camera.lookAt(0, 0, 0);
+
+                    if (progress < 1) {
+                        requestAnimationFrame(animateZoom);
+                    } else {
+                        camera.position.copy(targetPos);
+                        camera.lookAt(0, 0, 0);
+                        if (controls) {
+                            controls.target.set(0, 0, 0);
+                            controls.minDistance = 14;
+                            controls.maxDistance = 120; // Cho phép người dùng thu nhỏ tùy thích
+                            controls.enabled = true;
+                            controls.update();
+                        }
+
+                        // Cập nhật chú thích chạm mở quà khi đã phóng to sát hành tinh
+                        showPrompt(true);
+                    }
+                }
+                animateZoom();
+            }
+            window.zoomToPlanet = zoomToPlanet;
+
+            // Xử lý khi người dùng chạm vào hành tinh hoặc thanh gợi ý
+            window.handlePlanetClickAfterIntro = function() {
+                if (!isZoomedToPlanet) {
+                    // Nếu đang ở góc nhìn thu nhỏ -> Lập tức phóng to tới hành tinh
+                    zoomToPlanet();
+                } else {
+                    // Nếu đã phóng to sát hành tinh -> Mở quà tiếp theo và chuyển trang
+                    openPlanetNextGift();
+                }
+            };
+
+            // Chạm vào hành tinh -> mở quà tiếp theo và chuyển sang trang mới
+            function openPlanetNextGift() {
+                if (isTransitioningNext) return;
+                isTransitioningNext = true;
+
+                playPlanetChime();
+
+                // Ẩn thanh gợi ý
+                const prompt = document.getElementById("planet-gift-prompt");
+                if (prompt) {
+                    prompt.style.opacity = "0";
+                    prompt.style.pointerEvents = "none";
+                }
+
+                // Bắn pháo hoa confetti rực rỡ
+                if (typeof confetti === "function") {
+                    confetti({
+                        particleCount: 220,
+                        spread: 120,
+                        origin: { y: 0.5 },
+                        colors: ["#ffd166", "#ff4d6d", "#00f5d4", "#c77dff", "#ffffff"]
+                    });
+                    setTimeout(() => {
+                        confetti({
+                            particleCount: 160,
+                            spread: 100,
+                            origin: { y: 0.45 },
+                            colors: ["#ffd166", "#ff758c", "#ffffff"]
+                        });
+                    }, 300);
+                }
+
+                // Camera Three.js đâm xuyên vào lõi hành tinh (warp effect)
+                const camera = window.galaxyCamera;
+                let zoomCount = 0;
+                const warpInterval = setInterval(() => {
+                    zoomCount++;
+                    if (camera) camera.position.z -= 1.1;
+                    if (zoomCount >= 25) clearInterval(warpInterval);
+                }, 25);
+
+                // Màn hình loé sáng
+                setTimeout(() => {
+                    const warp = document.getElementById("galaxy-warp-overlay");
+                    if (warp) warp.classList.add("active");
+                }, 650);
+
+                // Chuyển sang trang tiếp theo
+                setTimeout(() => {
+                    const nextPage = window.NEXT_PAGE_AFTER_GALAXY || "dlove.html";
+                    window.location.href = nextPage;
+                }, 1350);
+            }
+            window.openPlanetNextGift = openPlanetNextGift;
+        })();
+    </script>
+</body>
+</html>
