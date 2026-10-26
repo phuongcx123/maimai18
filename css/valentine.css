@@ -1850,3 +1850,176 @@
     line-height: 1.4;
     text-align: center;
 }
+
+
+/* ==========================================================================
+   TỐI ƯU TOÀN DIỆN MÀN HÌNH XOAY NGANG (MOBILE LANDSCAPE: HEIGHT 300px - 480px)
+   ========================================================================== */
+
+@media screen and (orientation: landscape) and (max-height: 520px) {
+    /* 1. TOÀN CỤC */
+    html, body {
+        height: 100vh !important;
+        height: 100dvh !important;
+        overflow: hidden !important;
+    }
+
+    /* 2. TRANG 1 (index.html): KHUNG NHẬP MÃ PIN */
+    #lock-screen {
+        padding: 4px 10px !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+    }
+
+    .lock-container {
+        padding: 6px 16px !important;
+        border-radius: 16px !important;
+        margin: auto !important;
+        max-width: 420px !important;
+        width: 88% !important;
+        max-height: 94dvh !important;
+        max-height: 94vh !important;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.6) !important;
+        animation: none !important;
+        transform: none !important;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: center !important;
+    }
+
+    .title {
+        font-size: 13px !important;
+        margin-top: 1px !important;
+        margin-bottom: 5px !important;
+        letter-spacing: 0.3px !important;
+    }
+
+    .pass-dots {
+        margin-bottom: 5px !important;
+        gap: 8px !important;
+    }
+
+    .dot {
+        width: 9px !important;
+        height: 9px !important;
+        border-width: 1.5px !important;
+    }
+
+    .pass-error-msg {
+        margin-top: -4px !important;
+        margin-bottom: 3px !important;
+        min-height: 12px !important;
+        font-size: 10px !important;
+    }
+
+    .numpad {
+        max-width: 200px !important;
+        gap: 4px !important;
+    }
+
+    .num-btn {
+        padding: 4px 6px !important;
+        font-size: 13px !important;
+        border-radius: 8px !important;
+        min-height: 28px !important;
+        line-height: 1 !important;
+    }
+
+    /* 3. TRANG 1 (index.html): THẺ BỨC THƯ & ẢNH CÀO (CARD WRAPPER) */
+    .card-wrapper {
+        flex-direction: row !important;
+        width: 96% !important;
+        max-width: 780px !important;
+        height: 92dvh !important;
+        height: 92vh !important;
+        max-height: 400px !important;
+        padding: 8px 12px !important;
+        border-radius: 16px !important;
+        margin: auto !important;
+        gap: 10px !important;
+    }
+
+    .card-left {
+        flex: 1.1 !important;
+        padding: 10px 14px !important;
+        overflow-y: auto !important;
+    }
+
+    .main-title {
+        font-size: 15px !important;
+        margin-bottom: 4px !important;
+    }
+
+    .typing-text {
+        font-size: 11px !important;
+        line-height: 1.4 !important;
+        min-height: 45px !important;
+        margin-bottom: 6px !important;
+    }
+
+    .card-right {
+        flex: 0.9 !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+    }
+
+    .scratch-box {
+        width: 150px !important;
+        height: 190px !important;
+        border-radius: 12px !important;
+    }
+
+    .btn-open-box {
+        padding: 6px 14px !important;
+        font-size: 11px !important;
+        border-radius: 20px !important;
+        margin-top: 6px !important;
+    }
+
+    .hint-text {
+        font-size: 10px !important;
+        margin-top: 4px !important;
+    }
+
+    /* 4. TRANG 1: POPUP HỘP QUÀ */
+    .modal-card {
+        max-width: 440px !important;
+        width: 90% !important;
+        max-height: 92dvh !important;
+        padding: 12px 16px !important;
+        border-radius: 16px !important;
+    }
+
+    .modal-avatar {
+        font-size: 32px !important;
+        margin-bottom: 4px !important;
+    }
+
+    .modal-title {
+        font-size: 15px !important;
+        margin-bottom: 4px !important;
+    }
+
+    .speech-bubble {
+        padding: 8px 12px !important;
+        margin-bottom: 6px !important;
+    }
+
+    .speech-bubble p {
+        font-size: 11px !important;
+        line-height: 1.4 !important;
+    }
+
+    .modal-hint {
+        font-size: 10px !important;
+        margin-bottom: 8px !important;
+    }
+
+    .modal-btn {
+        padding: 6px 16px !important;
+        font-size: 12px !important;
+    }
+}

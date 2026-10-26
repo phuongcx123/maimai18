@@ -234,3 +234,87 @@
 canvas {
     touch-action: manipulation !important;
 }
+
+
+/* ==========================================================================
+   TỐI ƯU MÀN HÌNH BỨC THƯ & PHONG BÌ (dlove.html) CHO MOBILE XOAY NGANG
+   ========================================================================== */
+
+@media screen and (orientation: landscape) and (max-height: 520px) {
+    /* 1. Màn hình bó hoa mở đầu */
+    .bouquet-screen .bouquet-stage {
+        width: min(84vw, calc((100svh - 40px) / 1.28), 360px) !important;
+        margin-top: 0 !important;
+    }
+
+    .bouquet-screen .bouquet-hint {
+        font-size: 10px !important;
+        bottom: 4px !important;
+    }
+
+    /* 2. Topbar góc trên bên phải */
+    .topbar {
+        top: 8px !important;
+        right: 12px !important;
+        gap: 8px !important;
+    }
+
+    .topbar-letter {
+        width: 38px !important;
+        height: 38px !important;
+    }
+
+    .topbar-letter .envelope-cover {
+        width: 32px !important;
+    }
+
+    .topbar-letter::after {
+        font-size: 10px !important;
+        padding: 3px 8px !important;
+        right: calc(100% + 6px) !important;
+    }
+
+    .topbar-music {
+        width: 32px !important;
+        height: 32px !important;
+    }
+
+    /* 3. Phong bì thư khi chạm mở */
+    .fl-modal {
+        padding: 6px !important;
+    }
+
+    .fl-modal .envelope {
+        width: min(92vw, 420px) !important;
+        max-width: 420px !important;
+        bottom: 4px !important;
+    }
+
+    /* 4. Tờ giấy thư chúc mừng sinh nhật */
+    .fl-modal .letter-paper {
+        width: min(94vw, 440px) !important;
+        height: min(88dvh, 340px) !important;
+        max-height: 88dvh !important;
+        padding: 35px 18px 25px !important;
+        border-radius: 12px !important;
+        overflow-y: auto !important;
+    }
+
+    .fl-modal .letter-copy h1 {
+        font-size: 24px !important;
+        margin-bottom: 6px !important;
+    }
+
+    .fl-modal .letter-paragraphs p {
+        font-size: 12px !important;
+        line-height: 1.45 !important;
+        margin-bottom: 8px !important;
+    }
+
+    .fl-modal .fl-toolbar .fl-close {
+        width: 28px !important;
+        height: 28px !important;
+        top: 6px !important;
+        right: 6px !important;
+    }
+}

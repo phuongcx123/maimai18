@@ -1840,3 +1840,64 @@ body {
     font-family: 'Mali', cursive, sans-serif;
     line-height: 1.4;
 }
+
+
+/* ==========================================================================
+   TỐI ƯU MÀN HÌNH HOA NỞ (flower.html) CHO MOBILE XOAY NGANG
+   ========================================================================== */
+
+@media screen and (orientation: landscape) and (max-height: 520px) {
+    .container {
+        overflow: hidden !important;
+        height: 100vh !important;
+        height: 100dvh !important;
+    }
+
+    /* Bó hoa nở ở trung tâm */
+    .bouquet-stage {
+        bottom: -20px !important;
+        transform: translateX(-50%) scale(0.48) !important;
+    }
+
+    /* Dòng chữ chúc mừng trên đỉnh */
+    .special-text {
+        top: 2% !important;
+        font-size: 16px !important;
+        letter-spacing: 0.5px !important;
+    }
+
+    /* Hộp quà bí mật góc dưới */
+    .gift-image {
+        max-height: 48vh !important;
+        max-width: 40% !important;
+    }
+
+    .instruction-text {
+        font-size: 11px !important;
+        margin-top: 4px !important;
+    }
+
+    /* Thẻ ảnh mini bay quanh */
+    .mini-photo-card {
+        padding: 4px 5px 6px 5px !important;
+        min-width: 85px !important;
+        max-width: 95px !important;
+        width: 90px !important;
+        border-radius: 6px !important;
+    }
+
+    .mini-photo-img-wrap {
+        height: 70px !important;
+    }
+
+    .mini-photo-caption {
+        font-size: 8.5px !important;
+        margin-top: 3px !important;
+    }
+
+    .mini-photo-badge {
+        font-size: 12px !important;
+        top: -5px !important;
+        right: -5px !important;
+    }
+}
