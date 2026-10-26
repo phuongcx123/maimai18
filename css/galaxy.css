@@ -100,6 +100,70 @@ html, body {
     transform: scale(1.1);
 }
 
+.btn-audio-toggle.playing {
+    animation: spinDisk 4s linear infinite;
+    background: rgba(255, 77, 109, 0.35);
+    border-color: rgba(255, 209, 102, 0.6);
+}
+
+@keyframes spinDisk {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+/* Chú thích chạm để bắt đầu Khám phá Ngân Hà */
+.start-galaxy-prompt {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1000;
+    cursor: pointer;
+    text-align: center;
+    font-family: 'Mali', cursive;
+    pointer-events: auto;
+    user-select: none;
+    transition: opacity 0.4s ease, transform 0.4s ease;
+    animation: pulseStartPrompt 2.2s ease-in-out infinite;
+}
+
+@keyframes pulseStartPrompt {
+    0%, 100% { transform: translate(-50%, -50%) scale(1); }
+    50% { transform: translate(-50%, -50%) scale(1.04); }
+}
+
+.start-galaxy-icon {
+    font-size: 38px;
+    filter: drop-shadow(0 4px 14px rgba(255, 209, 102, 0.9));
+    margin-bottom: 6px;
+    animation: bounceFinger 1.4s ease-in-out infinite;
+}
+
+@keyframes bounceFinger {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+}
+
+.start-galaxy-badge {
+    background: linear-gradient(135deg, rgba(255, 77, 109, 0.95), rgba(255, 142, 158, 0.95), rgba(255, 209, 102, 0.95));
+    border: 2px solid rgba(255, 255, 255, 0.95);
+    color: #ffffff;
+    font-size: 15px;
+    font-weight: 700;
+    padding: 10px 24px;
+    border-radius: 35px;
+    box-shadow: 0 8px 30px rgba(255, 77, 109, 0.7);
+    letter-spacing: 0.3px;
+    white-space: nowrap;
+}
+
+.start-galaxy-sub {
+    color: #ffe5ec;
+    font-size: 12px;
+    margin-top: 6px;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.9);
+}
+
 /* Nút chuyển đổi trang giữa các trải nghiệm */
 .page-nav {
     position: fixed;

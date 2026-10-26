@@ -271,29 +271,18 @@ document.addEventListener("DOMContentLoaded", () => {
           letterContent.appendChild(sign);
         }
 
-        // Hiện hộp quà bí mật trong bức thư
-        const giftBox = document.createElement("div");
-        giftBox.id = "secret-gift-box";
-        giftBox.className = "secret-gift-box show";
-        giftBox.innerHTML = `
-                    <div class="secret-gift-halo"></div>
-                    <div class="secret-gift-icon-wrap">
-                        <span class="secret-gift-icon">🎁</span>
-                        <span class="secret-gift-ribbon">🎀</span>
-                    </div>
-                    <div class="secret-gift-info">
-                        <div class="secret-gift-title">Hộp Quà Bí Mật 💖</div>
-                        <div class="secret-gift-desc">Còn một bất ngờ nữa dành cho Chị nè...</div>
-                    </div>
-                    <div class="secret-gift-badge">Chạm để mở ✨</div>
-                `;
-        giftBox.onclick = (e) => {
+        // Nút gấp thư lại tinh tế ở cuối bức thư
+        const closeLetterBtn = document.createElement("button");
+        closeLetterBtn.type = "button";
+        closeLetterBtn.className = "letter-close-action-btn";
+        closeLetterBtn.innerHTML = "<span>Gấp thư lại</span> 💌";
+        closeLetterBtn.onclick = (e) => {
           e.stopPropagation();
-          openSecretGift();
+          if (letterBox) letterBox.style.display = "none";
         };
-        letterContent.appendChild(giftBox);
+        letterContent.appendChild(closeLetterBtn);
 
-        // Hiện nút hộp quà nổi ngoài màn hình hoa
+        // Hiện nút món quà nổi ngoài màn hình hoa
         const floatingGift = document.getElementById("floating-gift-shortcut");
         if (floatingGift) {
           floatingGift.classList.add("show");

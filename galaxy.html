@@ -34,8 +34,21 @@
     <!-- Lớp phủ loé sáng warp-speed khi chuyển trang -->
     <div id="galaxy-warp-overlay" class="galaxy-warp-overlay"></div>
 
+    <!-- Nút bật/tắt nhạc nền -->
+    <button id="music-btn" class="btn-audio-toggle" title="Bật/Tắt Nhạc">
+        <i class="fas fa-music"></i>
+    </button>
+    <audio id="bg-audio" loop src="a.mp3" preload="auto"></audio>
+
+    <!-- Chú thích khởi đầu: Chạm để bắt đầu khám phá -->
+    <div id="start-galaxy-prompt" class="start-galaxy-prompt" title="Chạm để bắt đầu">
+        <div class="start-galaxy-icon">👆</div>
+        <div class="start-galaxy-badge">✨ Chạm vào màn hình để bắt đầu Dải Ngân Hà 🚀 ✨</div>
+        <div class="start-galaxy-sub">Nhạc nền & không gian 3D sẽ phát khi Chị chạm nha</div>
+    </div>
+
     <!-- Gợi ý chạm vào hành tinh để mở quà tiếp theo -->
-    <div id="planet-gift-prompt" class="planet-gift-prompt" onclick="window.openPlanetNextGift && window.openPlanetNextGift()" title="Chạm vào để mở món quà tiếp theo">
+    <div id="planet-gift-prompt" class="planet-gift-prompt" onclick="window.handlePlanetClickAfterIntro && window.handlePlanetClickAfterIntro()" title="Chạm vào để mở món quà tiếp theo">
         <div class="planet-gift-icon">👆</div>
         <div class="planet-gift-badge">✨ Chạm vào đây để mở quà tiếp theo nhé 🎁 ✨</div>
         <div class="planet-gift-sub">Ấn vào hành tinh phát sáng ở giữa</div>
@@ -53,12 +66,75 @@
     <!-- Script điều khiển chính Three.js 3D Galaxy -->
     <script src="./js/galaxy.js"></script>
 
-    <!-- Quản lý hành động phóng to hành tinh & chạm hành tinh mở quà tiếp theo -->
+    <!-- Quản lý nhạc nền, khởi động theo người dùng & chạm hành tinh mở quà tiếp theo -->
     <script>
         (function() {
             let isZoomedToPlanet = false;
             let isTransitioningNext = false;
-            let autoZoomTimer = null;
+            let introHasTriggered = false;
+
+            // === 1. QUẢN LÝ NHẠC NỀN a.mp3 ===
+            const bgAudio = document.getElementById("bg-audio");
+            const musicBtn = document.getElementById("music-btn");
+
+            function toggleMusic(e) {
+                if (e) e.stopPropagation();
+                if (!bgAudio) return;
+                if (bgAudio.paused) {
+                    bgAudio.play().then(() => {
+                        if (musicBtn) musicBtn.classList.add("playing");
+                    }).catch(() => {});
+                } else {
+                    bgAudio.pause();
+                    if (musicBtn) musicBtn.classList.remove("playing");
+                }
+            }
+            if (musicBtn) musicBtn.addEventListener("click", toggleMusic);
+
+            function playMusicSafe() {
+                if (bgAudio && bgAudio.paused) {
+                    bgAudio.play().then(() => {
+                        if (musicBtn) musicBtn.classList.add("playing");
+                    }).catch(() => {});
+                }
+            }
+
+            // === 2. BẮT ĐẦU KHI NGƯỜI DÙNG CHẠM (KHÔNG TỰ ĐỘNG CHẠY) ===
+            function startIntroByUser() {
+                playMusicSafe();
+                if (!introHasTriggered) {
+                    introHasTriggered = true;
+                    if (typeof window.galaxyStartIntro === "function") {
+                        window.galaxyStartIntro();
+                    }
+                    const startPrompt = document.getElementById("start-galaxy-prompt");
+                    if (startPrompt) {
+                        startPrompt.style.opacity = "0";
+                        startPrompt.style.pointerEvents = "none";
+                        setTimeout(() => {
+                            if (startPrompt.parentNode) startPrompt.remove();
+                        }, 400);
+                    }
+                }
+            }
+
+            const startPromptEl = document.getElementById("start-galaxy-prompt");
+            if (startPromptEl) {
+                startPromptEl.addEventListener("click", function(e) {
+                    e.stopPropagation();
+                    startIntroByUser();
+                });
+            }
+
+            document.addEventListener("click", function(e) {
+                if (musicBtn && musicBtn.contains(e.target)) return;
+                startIntroByUser();
+            });
+
+            document.addEventListener("touchend", function(e) {
+                if (musicBtn && musicBtn.contains(e.target)) return;
+                startIntroByUser();
+            }, { passive: true });
 
             // Hàm hiển thị & cập nhật nội dung chú thích (cả khi thu nhỏ lẫn khi phóng to)
             function showPrompt(isZoomed) {
@@ -71,7 +147,7 @@
                     if (sub) sub.innerHTML = "Ấn vào quả cầu phát sáng ở giữa để chuyển sang quà tiếp theo 🎉";
                 } else {
                     if (badge) badge.innerHTML = "✨ Chạm vào hành tinh để phóng to & mở quà tiếp theo 🎁 ✨";
-                    if (sub) sub.innerHTML = "Ấn vào hành tinh ở giữa dải ngân hà hoặc chờ tự động 🚀";
+                    if (sub) sub.innerHTML = "Ấn vào hành tinh ở giữa dải ngân hà hoặc chạm vào đây 🚀";
                 }
                 prompt.classList.add("active");
                 prompt.style.opacity = "1";
@@ -101,37 +177,18 @@
                 } catch(e) {}
             }
 
-            // Tự động bung mở dải ngân hà sau 1 giây nếu người dùng chưa kịp bấm
-            setTimeout(() => {
-                if (typeof window.galaxyStartIntro === "function") {
-                    window.galaxyStartIntro();
-                }
-            }, 1000);
-
-            // Hiển thị ngay gợi ý khi đang ở góc nhìn thu nhỏ ngắm dải ngân hà
-            setTimeout(() => {
-                if (!isZoomedToPlanet && !isTransitioningNext) {
-                    showPrompt(false);
-                }
-            }, 2500);
-
             // Khi camera intro hoàn tất việc lùi xa (thu nhỏ) để ngắm toàn cảnh dải ngân hà
             window.onGalaxyIntroFinished = function() {
                 // Đảm bảo chú thích hiển thị rõ ràng khi thu nhỏ ngắm dải ngân hà
                 showPrompt(false);
-
-                // Sau thời gian quy định (mặc định 6s), bắt buộc phóng to tới hành tinh
-                const waitTime = (window.TIME_BEFORE_PLANET_ZOOM || 6) * 1000;
-                autoZoomTimer = setTimeout(() => {
-                    zoomToPlanet();
-                }, waitTime);
+                // KHÔNG TỰ ĐỘNG PHÓNG TO VÀ CHUYỂN TRANG!
+                // Để người dùng ngắm thỏa thích dải ngân hà và hình ảnh
             };
 
-            // Hàm tự động phóng to mượt mà tới hành tinh trung tâm
+            // Hàm phóng to mượt mà tới hành tinh trung tâm (chỉ chạy khi người dùng bấm)
             function zoomToPlanet() {
                 if (isZoomedToPlanet || isTransitioningNext) return;
                 isZoomedToPlanet = true;
-                if (autoZoomTimer) clearTimeout(autoZoomTimer);
 
                 const camera = window.galaxyCamera;
                 const controls = window.galaxyControls;

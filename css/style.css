@@ -1082,6 +1082,31 @@ body {
     color: #ff6b81;
 }
 
+.letter-close-action-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 14px;
+    padding: 7px 20px;
+    font-size: 13.5px;
+    font-weight: 600;
+    font-family: inherit;
+    color: #ff4d6d;
+    background: rgba(255, 77, 109, 0.08);
+    border: 1.5px solid rgba(255, 77, 109, 0.4);
+    border-radius: 25px;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(255, 77, 109, 0.15);
+    transition: all 0.25s ease;
+}
+
+.letter-close-action-btn:hover {
+    background: #ff4d6d;
+    color: #fff;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(255, 77, 109, 0.35);
+}
+
 /* === HỘP QUÀ BÍ MẬT TRONG BỨC THƯ === */
 .secret-gift-box {
     margin-top: 18px;
