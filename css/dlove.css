@@ -4,8 +4,9 @@
 ﻿.intro.bouquet-screen{position:fixed;top:0;right:0;bottom:0;left:0;z-index:1000;isolation:isolate;overflow:hidden;--hold-progress: 0;user-select:none;-webkit-user-select:none;-webkit-touch-callout:none;touch-action:none}.bouquet-screen .bouquet-intro{box-sizing:border-box;position:relative;width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:max(20px,env(safe-area-inset-top)) 16px max(20px,env(safe-area-inset-bottom));text-align:center;transition:opacity var(--intro-fade-duration) ease var(--intro-fade-delay)}.bouquet-screen .bouquet-stage{position:relative;isolation:isolate;flex:0 0 auto;width:min(91vw,calc((100svh - 100px)/1.28),450px);aspect-ratio:1000/1280;margin:0}.bouquet-screen[data-phase=ready] .bouquet-stage{cursor:pointer;touch-action:none}.bouquet-screen .bouquet-glow{position:absolute;z-index:-1;pointer-events:none;top:-9%;right:-35%;bottom:-7%;left:-35%;background:radial-gradient(ellipse at 50% 42%,#ea96ad28,#a9427820 28%,#6632590c 49%,transparent 69%);opacity:calc(.8 + var(--hold-progress) * .5);transform:scale(calc(1 + var(--hold-progress) * .04))}.bouquet-screen .bouquet-part{position:absolute;left:var(--x);top:var(--y);width:var(--w);height:var(--h);z-index:var(--z);transform:rotate(var(--rotation, 0deg)) scaleX(var(--flip, 1));transform-origin:50% 78%;opacity:0}.bouquet-screen .bouquet-art{object-fit:contain;pointer-events:none}.bouquet-screen .bouquet-photo{pointer-events:none}.bouquet-screen .bouquet-photo img{display:block;width:100%;height:100%;object-fit:contain;object-position:center top}.bouquet-screen .bouquet-photo.is-card img{box-sizing:border-box;height:75%;object-fit:cover;border:5px solid #fff0dd;border-bottom-width:17px;border-radius:3px;background:#f3d3d0}.bouquet-screen .bouquet-bow{--x: 26.5%;--y: 63.28%;--w: 47%;--h: 23%;--z: 50;padding:0;border:0;outline-offset:5px;border-radius:35%;background:transparent;transform-origin:50% 29%;cursor:pointer;touch-action:none;-webkit-tap-highlight-color:transparent}.bouquet-screen .bouquet-bow:disabled{cursor:default}.bouquet-screen .bouquet-bow:focus-visible{outline:1px solid #ffe8c8}.bouquet-screen .bouquet-bow img{width:100%;height:100%;object-fit:contain;pointer-events:none;filter:drop-shadow(0 0 6px #f8b3c233)}.bouquet-screen .bouquet-bow:not(:disabled):hover img{filter:drop-shadow(0 0 9px #ffcabe77)}.bouquet-screen .bouquet-hold-ring{position:absolute;width:32%;height:auto;aspect-ratio:1;left:34%;top:7%;overflow:visible;pointer-events:none;opacity:0;transition:opacity .2s ease;transform:rotate(-90deg)}.bouquet-screen .bouquet-hold-ring circle{fill:none;stroke-width:1.4}.bouquet-screen .bouquet-ring-track{stroke:#fff5df;opacity:.18}.bouquet-screen .bouquet-ring-progress{stroke:#fff0cb;stroke-width:2.5;stroke-linecap:round;stroke-dasharray:1;stroke-dashoffset:calc(1 - var(--hold-progress));filter:drop-shadow(0 0 3px #ffc7a0)}.bouquet-screen.is-holding .bouquet-hold-ring,.bouquet-screen[data-phase=opening] .bouquet-hold-ring{opacity:1}.bouquet-screen .bouquet-bow-fallback{display:none;font-size:12px;color:#ffebdd;background:#743e59;border:1px solid #d69ba7;padding:12px;border-radius:24px}.bouquet-screen .is-missing-art .bouquet-bow-fallback{display:block}.bouquet-screen img[data-failed=true]{visibility:hidden}.bouquet-screen:not([data-phase=loading]) .bouquet-art,.bouquet-screen:not([data-phase=loading]) .bouquet-bow{opacity:1}.bouquet-screen:not([data-phase=ready]):not([data-phase=opening]) .bouquet-art[data-kind=infill]{opacity:0}.bouquet-screen[data-phase=ready] .bouquet-photo,.bouquet-screen[data-phase=opening] .bouquet-photo{opacity:1}.bouquet-screen[data-phase=ready] .bouquet-bloom:not([data-keep=true]),.bouquet-screen[data-phase=opening] .bouquet-bloom:not([data-keep=true]){opacity:0}.bouquet-screen .bouquet-reveal{position:absolute;top:0;right:0;bottom:0;left:0;z-index:60;width:100%;height:100%;padding:0;border:0;border-radius:35%;background:transparent;cursor:pointer;touch-action:manipulation;-webkit-tap-highlight-color:transparent}.bouquet-screen .bouquet-reveal:disabled{cursor:default}.bouquet-screen .bouquet-reveal:focus-visible{outline:1px solid #ffe8c8;outline-offset:-12px}.bouquet-screen .bouquet-reveal[hidden]{display:none}.bouquet-screen .bouquet-footer{position:relative;z-index:2;flex:0 0 auto;margin-top:12px}.bouquet-screen .bouquet-hint{min-height:1.6em;margin:0;font-size:12px;line-height:1.6;letter-spacing:.01em;color:#ebbac9}.bouquet-screen .bouquet-status{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}.bouquet-screen[data-phase=opening]{pointer-events:none}.bouquet-screen[data-phase=opening] .bouquet-intro{opacity:0}@media (max-width: 600px){.bouquet-screen .bouquet-stage{width:min(95vw,calc((100svh - 100px)/1.28),420px);margin-top:0}.bouquet-screen .bouquet-hint{font-size:11px}}@media (max-height: 620px){.bouquet-screen .bouquet-intro{padding-top:12px;padding-bottom:12px}.bouquet-screen .bouquet-stage{width:min(86vw,calc((100svh - 80px)/1.28));margin-top:0}}@media (prefers-reduced-motion: reduce){.bouquet-screen *,.bouquet-screen *:before,.bouquet-screen *:after{animation:none!important;transition:none!important}}.envelope-cover{display:block;position:relative;width:100%;aspect-ratio:1349 / 859;background:url(../assets/dlove/letter-20-10/pink-texture.webp) 0 0 / 204px 154px;pointer-events:none}.envelope-cover>img{position:absolute;top:0;right:0;bottom:0;left:0;width:100%;height:100%;display:block;user-select:none;-webkit-user-select:none}.envelope-cover>.envelope-cover-seal{inset:51.1% auto auto 40%;width:19.72%;height:auto;filter:drop-shadow(0 3px 3px #7e433a25)}.envelope-flap,.envelope-flap>img,.envelope-inscription{position:absolute;top:0;right:0;bottom:0;left:0;display:block;width:100%;height:100%;pointer-events:none;user-select:none;-webkit-user-select:none}.envelope-inscription{fill:#814f3d;text-anchor:middle;font-family:Georgia,Times New Roman,serif}.envelope-top-line{letter-spacing:.1em}.envelope-headline{font-family:LetterAllura,cursive;fill:#a85c47}.envelope-bottom-line{letter-spacing:.0625em}.envelope-divider{fill:#b46850}.envelope-divider path{fill:none;stroke:#ad725f;stroke-width:1.5}@font-face{font-family:LetterDancing;src:url(../assets/dlove/letter-20-10/DancingScript.ttf) format("truetype");font-weight:400;font-style:normal;font-display:swap}@font-face{font-family:LetterAllura;src:url(../assets/dlove/letter-20-10/Allura.ttf) format("truetype");font-weight:400;font-style:normal;font-display:swap}.fl-modal{--ink: #795246;--rose: #ac6355;--muted: #a28474;--ease: cubic-bezier(.22,.75,.16,1);--paper-texture: url(../assets/dlove/letter-20-10/paper-texture.webp);--pink-texture: url(../assets/dlove/letter-20-10/pink-texture.webp);--writing-script: "LetterAllura", "Snell Roundhand", cursive;--writing-body: "LetterDancing", "Segoe Script", cursive;position:fixed;top:0;right:0;bottom:0;left:0;width:100%;height:100dvh;max-width:none;max-height:none;margin:0;padding:0 20px max(28px,env(safe-area-inset-bottom));border:0;background:transparent;color:var(--ink);overflow:hidden;overscroll-behavior:contain;font-family:Georgia,serif}.fl-modal[open]{display:flex;flex-direction:column}.fl-modal::backdrop{background:#120a16d9;-webkit-backdrop-filter:blur(7px);backdrop-filter:blur(7px);animation:fl-backdrop-in .72s ease both}.fl-modal,.fl-modal *{box-sizing:border-box}.fl-modal [hidden]{display:none!important}.fl-modal img{display:block;max-width:100%}.fl-modal button{color:inherit;font:inherit;cursor:pointer;touch-action:manipulation;-webkit-tap-highlight-color:transparent}.fl-modal button:disabled{cursor:default;opacity:.6}.fl-modal button:focus-visible{outline:2px solid #cb9584;outline-offset:5px}.fl-modal .fl-toolbar{position:sticky;top:0;z-index:100;width:min(820px,100%);margin:0 auto;display:flex;flex-shrink:0;justify-content:flex-end;align-items:center;pointer-events:none;padding:max(12px,env(safe-area-inset-top)) 0 12px;color:#f2d4cf}.fl-modal .fl-toolbar .fl-close{width:40px;height:40px;padding:0;font:27px/1 Arial,sans-serif;border:1px solid #f6cece44;border-radius:50%;background:#251627c9;pointer-events:auto}.fl-modal .fl-main{position:relative;flex:1;min-height:0;width:min(740px,100%);margin:0 auto;overflow:hidden}.fl-modal .fl-artwork{position:absolute;top:50%;left:50%;width:100%;visibility:hidden;transform:translate(-50%,-50%) scale(var(--letter-scale, 1));transform-origin:center}.fl-modal .fl-main.is-fitted .fl-artwork{visibility:visible}.fl-modal.fl-arriving .fl-main,.fl-modal.fl-leaving .fl-main{overflow:visible}.fl-modal .gift-controls{transition:opacity .2s ease}.fl-modal.fl-arriving .gift-controls{opacity:0}.fl-modal .fl-toolbar{animation:fl-appear .25s .12s ease both}.fl-modal.fl-leaving{pointer-events:none}.fl-modal.fl-leaving .fl-toolbar{animation:fl-disappear .15s ease both}.fl-modal.fl-leaving .gift-controls{opacity:0}.fl-modal.fl-leaving::backdrop{animation:fl-backdrop-out var(--letter-departure-ms) ease both}@keyframes fl-appear{0%{opacity:0}to{opacity:1}}@keyframes fl-disappear{0%{opacity:1}to{opacity:0}}@keyframes fl-backdrop-in{0%{background:#120a1600;-webkit-backdrop-filter:blur(0);backdrop-filter:blur(0)}to{background:#120a16d9;-webkit-backdrop-filter:blur(7px);backdrop-filter:blur(7px)}}@keyframes fl-backdrop-out{0%{background:var(--exit-backdrop-color, #120a16d9);-webkit-backdrop-filter:var(--exit-backdrop-blur, blur(7px));backdrop-filter:var(--exit-backdrop-blur, blur(7px))}to{background:#120a1600;-webkit-backdrop-filter:blur(0);backdrop-filter:blur(0)}}.fl-modal .gift-scene{position:relative;width:100%;height:var(--closed-height,630px);transition:height .95s var(--ease)}.fl-modal .gift-scene[data-state=opening],.fl-modal .gift-scene[data-state=open],.fl-modal .gift-scene[data-state=closing]{height:var(--open-height,980px)}.fl-modal .envelope{position:absolute;left:0;bottom:28px;width:100%;aspect-ratio:1349 / 859;perspective:1900px;isolation:isolate}.fl-modal .envelope-back{position:absolute;top:0;right:0;bottom:0;left:0;z-index:1;background:var(--pink-texture) 0 0 / 204px 154px;border:1px solid #dab7b1;box-shadow:0 20px 28px -18px #66453866,0 5px 10px #63453415}.fl-modal .envelope-sides{position:absolute;top:0;right:0;bottom:0;left:0;width:100%;height:100%;z-index:10;pointer-events:none}.fl-modal .envelope-front{position:absolute;top:0;right:0;bottom:0;left:0;width:100%;height:100%;z-index:30;pointer-events:none}.fl-modal .flap-hinge{position:absolute;top:0;right:0;bottom:0;left:0;z-index:50;transform-style:preserve-3d;pointer-events:none}.fl-modal .flap-rotate{position:absolute;top:0;right:0;bottom:0;left:0;transform-origin:top center;transform-style:preserve-3d;transition:transform .85s var(--ease)}.fl-modal .flap-outside{position:absolute;top:0;right:0;bottom:0;left:0;width:100%;height:100%;backface-visibility:hidden;-webkit-backface-visibility:hidden}.fl-modal .flap-inside{position:absolute;top:0;right:0;bottom:0;left:0;background:var(--pink-texture) 0 0 / 204px 154px;transform:rotateY(180deg);backface-visibility:hidden;-webkit-backface-visibility:hidden;clip-path:polygon(0 0,100% 0,97% 11%,54% 70%,50% 73%,46% 70%,3% 11%);filter:brightness(.95)}.fl-modal .wax-seal{position:absolute;left:40%;top:51.1%;width:19.72%;z-index:56;filter:drop-shadow(0 3px 3px #7e433a25);pointer-events:none;transition:transform .35s ease,opacity .3s ease}.fl-modal .closed-cover{position:absolute;top:0;right:0;bottom:0;left:0;width:100%;height:100%;z-index:57;pointer-events:none;transition:opacity .18s ease}.fl-modal .envelope-hit{position:absolute;top:0;right:0;bottom:0;left:0;z-index:60;background:none;border:0}.fl-modal .envelope-hit:focus-visible{outline-offset:9px}.fl-modal .gift-scene:not([data-state=closed]) .closed-cover{opacity:0}.fl-modal .gift-scene[data-state=opening] .flap-rotate,.fl-modal .gift-scene[data-state=open] .flap-rotate{transform:rotateX(180deg)}.fl-modal .gift-scene[data-state=opening] .wax-seal,.fl-modal .gift-scene[data-state=open] .wax-seal{opacity:0;transform:translateY(20px) rotate(6deg) scale(.75)}.fl-modal .gift-scene.flap-is-back .flap-hinge{z-index:3}.fl-modal .letter-paper{position:absolute;width:89%;left:5.5%;bottom:var(--paper-bottom,132px);height:760px;padding:126px 33px 100px;z-index:20;background:var(--paper-texture) 0 0 / 204px 154px;border:1px solid #e8d6cc;box-shadow:0 5px 11px #63483122,0 1px 2px #63483117;transform-origin:center bottom;transform:translateY(250px) rotate(-1.4deg) scale(.94);opacity:0;pointer-events:none;transition:transform 1s var(--ease),opacity .45s ease}.fl-modal .gift-scene[data-state=opening] .letter-paper,.fl-modal .gift-scene[data-state=open] .letter-paper{transform:translateY(0) rotate(-1.4deg);opacity:1;pointer-events:auto;transition-delay:.35s}.fl-modal .gift-scene.flap-is-back .letter-paper{z-index:40}.fl-modal .gift-scene[data-state=closing] .letter-paper{z-index:20;transform:translateY(250px) rotate(-1.4deg) scale(.94);opacity:0;transition-delay:0s}.fl-modal.fl-leaving .gift-scene .letter-paper{z-index:20;opacity:0;transform:translateY(200px) rotate(-1.4deg) scale(.88);transition:transform .24s ease,opacity .18s ease;pointer-events:none}.fl-modal.fl-leaving .gift-scene .flap-rotate{transform:rotateX(0);transition:transform .25s .06s ease}.fl-modal.fl-leaving .flap-hinge{z-index:50}.fl-modal.fl-leaving .gift-scene .closed-cover{opacity:1;transition:opacity .18s .12s ease}.fl-modal .paper-border{position:absolute;top:11px;right:11px;bottom:11px;left:11px;border:1px solid #c3987812;pointer-events:none}.fl-modal .flower{position:absolute;height:auto;pointer-events:none;-webkit-user-select:none;user-select:none}.fl-modal .flower-top{top:-1%;left:-1%;width:28%;transform:scaleY(-1);opacity:.96;z-index:1}.fl-modal .letter-copy{position:relative;width:100%;height:100%;z-index:4;overflow-x:hidden;overflow-y:auto;overscroll-behavior-y:contain;touch-action:pan-y;scrollbar-width:thin;scrollbar-color:#b4847299 transparent;transform-origin:left top;transition:transform .85s var(--ease),opacity .8s ease}.fl-modal .letter-copy:focus-visible{outline:1px solid #b4847277;outline-offset:4px}.fl-modal .letter-copy::-webkit-scrollbar{width:5px}.fl-modal .letter-copy::-webkit-scrollbar-thumb{background:#b4847299;border-radius:5px}.fl-modal .letter-copy::-webkit-scrollbar-track{background:transparent}.fl-modal .letter-copy-content{display:block;overflow:clip}.fl-modal .letter-paper:not(.no-photo) .letter-copy-content:before{content:"";float:right;width:var(--copy-photo-width, 45%);height:calc(var(--copy-wrap-lines) * 80px);shape-outside:inset(var(--copy-photo-top, 180px) 0 0);pointer-events:none}.fl-modal .letter-copy h1{margin:0 0 23px;font-family:Segoe Script,Snell Roundhand,Georgia,serif;font-weight:400;font-style:italic;font-size:48px;line-height:1.25;letter-spacing:-.02em;color:#a55e4d}.fl-modal .letter-paragraphs p{margin:0 0 20px;font-size:21px;line-height:1.45;font-style:italic;overflow-wrap:anywhere}.fl-modal .letter-signature{margin:25px 0 0;font-family:Segoe Script,Snell Roundhand,Georgia,serif;white-space:pre-line;font-style:italic;font-size:23px;line-height:1.5;color:#a55e4d}.fl-modal .signature-line{margin-top:1px;width:42%;height:15px;fill:none;stroke:#b17e67;stroke-width:1}.fl-modal .letter-photo{--photo-width: 46%;--photo-height: 50%;--photo-bottom: 64px;position:absolute;top:calc(100% - var(--photo-height) - var(--photo-bottom));right:-1%;width:var(--photo-width);height:var(--photo-height);min-height:340px;border:0;padding:0;margin:0;background:transparent;z-index:5;transition:width .85s var(--ease),right .85s var(--ease),top .85s var(--ease),height .85s var(--ease)}.fl-modal .photo-backdrop{position:absolute;top:-6%;left:-6%;width:111%;height:115%;max-width:none;object-fit:fill;pointer-events:none;z-index:1}.fl-modal .photo-glow{position:absolute;top:13%;right:-1%;bottom:-5%;left:4%;background:radial-gradient(ellipse at 69% 50%,#efb5b32b,transparent 70%);pointer-events:none;z-index:1}.fl-modal .photo-viewport{position:absolute;top:0;right:2%;bottom:-4%;left:0;overflow:hidden;z-index:2;-webkit-mask-image:linear-gradient(90deg,transparent,#000 5%,#000 95%,transparent),linear-gradient(#000 0%,#000 81%,transparent 100%);mask-image:linear-gradient(90deg,transparent,#000 5%,#000 95%,transparent),linear-gradient(#000 0%,#000 81%,transparent 100%);-webkit-mask-composite:source-in;mask-composite:intersect}.fl-modal .photo-viewport img{width:100%;height:100%;object-fit:contain;object-position:50% 0%;transform:translate(var(--photo-shift-x,0%),var(--photo-shift-y,0%)) scale(var(--photo-zoom,1));transform-origin:50% 35%;transition:transform .2s ease}.fl-modal .letter-photo[data-style=plain] .photo-viewport{top:0;right:0;bottom:0;left:0;mask-image:none;-webkit-mask-image:none}.fl-modal .letter-photo[data-style=plain] .photo-viewport img{object-fit:contain;object-position:50% 35%}.fl-modal .letter-photo[data-style=plain] .photo-backdrop{opacity:1}.fl-modal .photo-hint{position:absolute;bottom:12%;left:13%;right:12%;z-index:7;display:flex;justify-content:center;align-items:center;gap:6px;padding:8px;color:#805340;background:#fff4e9e8;border-radius:50px;font:10px Arial,sans-serif;opacity:0;transition:opacity .2s}.fl-modal .letter-photo:hover .photo-hint,.fl-modal .letter-photo:focus-visible .photo-hint{opacity:1}.fl-modal .photo-hint .icon{width:12px;height:12px}.fl-modal .flower-photo{bottom:-1%;right:-1.5%;width:46%;z-index:6;transition:width .85s var(--ease),opacity .85s ease}.fl-modal .gift-scene[data-focus=photo] .letter-copy{transform:scale(.58);opacity:.86}.fl-modal .gift-scene[data-focus=photo] .letter-photo{top:115px;width:72%;right:-1%;height:calc(100% - 170px)}.fl-modal .gift-scene[data-focus=photo] .flower-photo{width:39%;opacity:.94}.fl-modal .gift-controls{text-align:center;padding-bottom:34px;margin:4px auto 0}.fl-modal .scene-hint{font-style:italic;font-size:14px;color:var(--muted);margin:0 0 9px}.fl-modal .footer-note{margin-top:25px;color:#a88d7b;font-size:10px;letter-spacing:.12em}.fl-modal .letter-copy h1{font:400 60px/1.18 var(--writing-script);font-synthesis:none;letter-spacing:normal;margin:0 0 19px;overflow-wrap:anywhere}.fl-modal .greeting-heart{display:inline-block;vertical-align:.1em;font:32px/1 Georgia,serif;margin-left:9px}.fl-modal .letter-paragraphs p{font:400 25px/1.43 var(--writing-body);font-synthesis:none;margin:0 0 18px;color:#704a40;white-space:pre-wrap;overflow-wrap:anywhere}.fl-modal .letter-signature{font:400 34px/1.14 var(--writing-script);font-synthesis:none;letter-spacing:normal;color:#a45546;white-space:pre-line;overflow-wrap:anywhere;margin-top:24px}.fl-modal .letter-photo{max-height:620px}.fl-modal .photo-viewport img{height:100%;max-width:none}.fl-modal .letter-photo[data-style=plain] .photo-viewport{top:3%;right:5%;bottom:3%;left:5%;overflow:hidden;border-radius:8px}.fl-modal .letter-photo[data-style=plain] .photo-viewport img{object-position:50% 100%}.fl-modal .letter-paper.no-photo .letter-copy{width:100%}.fl-modal .letter-paper.no-photo .flower-photo{width:29%;opacity:.5}.fl-modal .gift-controls{color:#f0c7c8;padding-bottom:12px}.fl-modal .gift-controls .scene-hint{color:#ccafb9}.fl-modal .fl-sr{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}@media (max-width: 700px){.fl-modal{padding-right:16px;padding-left:16px}.fl-modal .letter-paper{width:93%;left:3.5%;height:640px;padding:104px 23px 76px}.fl-modal .letter-copy h1{font-size:53px;margin-bottom:19px}.fl-modal .letter-paragraphs p{font-size:22px;line-height:1.45;margin-bottom:17px}.fl-modal .letter-signature{font-size:29px;line-height:1.16;margin-top:22px}.fl-modal .letter-photo{--photo-width: 44%;--photo-height: 46%;--photo-bottom: 58px;min-height:280px;right:-1%}.fl-modal .flower-photo{width:46%}.fl-modal .gift-scene[data-focus=photo] .letter-photo{width:71%;top:113px;height:calc(100% - 190px)}}@media (max-width: 480px){.fl-modal{padding-left:13px;padding-right:13px}.fl-modal .fl-toolbar .fl-close{width:36px;height:36px}.fl-modal .envelope{bottom:20px}.fl-modal .letter-paper{width:94%;left:3%;height:610px;padding:96px 16px 70px}.fl-modal .letter-copy h1{font-size:42px;line-height:1.2;margin-bottom:17px}.fl-modal .greeting-heart{font-size:21px;margin-left:4px}.fl-modal .letter-paragraphs p{font-size:19px;line-height:1.46;margin-bottom:16px}.fl-modal .letter-signature{font-size:25px;line-height:1.17;margin-top:21px}.fl-modal .flower-top{width:32%}.fl-modal .letter-photo{--photo-width: 43%;--photo-height: 43%;--photo-bottom: 50px;min-height:245px}.fl-modal .flower-photo{width:49%;bottom:0}.fl-modal .gift-scene[data-focus=photo] .letter-photo{width:72%;top:105px;height:67%}.fl-modal .scene-hint{font-size:12px}}@media (prefers-reduced-motion: reduce){.fl-modal,.fl-modal *,.fl-modal::backdrop{animation:none!important;transition:none!important}}.fl-modal .fl-preview-tools{flex:0 0 auto;margin:8px auto 0;max-width:100%}.fl-modal .fl-preview-tools button{display:flex;align-items:center;justify-content:center;gap:8px;min-height:44px;padding:10px 16px;border:1px solid #f1c4d05c;border-radius:12px;background:#3c233be6;color:#ffe6ef;font:13px/1.4 system-ui,sans-serif}.fl-modal .fl-preview-tools button:hover:not(:disabled){background:#58314d;border-color:#f1c4d0}.fl-modal .fl-preview-tools svg{flex-shrink:0}.topbar{position:absolute;top:max(40px,env(safe-area-inset-top));right:max(14px,env(safe-area-inset-right));z-index:999;display:flex;flex-direction:column;align-items:center;gap:20px}.topbar-btn{width:42px;height:42px;display:grid;place-items:center;padding:0;border:0;background:none;line-height:0;cursor:pointer;transition:transform .2s ease}.topbar-btn:hover{transform:translateY(-1px) scale(1.06)}.topbar-btn:active{transform:scale(.96)}.topbar-music,.topbar-palette{filter:drop-shadow(0 0 6px rgba(255,214,150,.85))}.topbar-letter{filter:drop-shadow(0 0 6px rgba(255,170,200,.75))}.topbar-letter{width:54px;height:54px;animation:topbar-hien .45s ease both}.topbar-letter .envelope-cover{width:46px}.topbar-letter[data-letter-open=true] .envelope-cover{opacity:0}@keyframes topbar-hien{0%{opacity:0;transform:translateY(-6px) scale(.9)}to{opacity:1;transform:none}}.giam-chuyen-dong .topbar-letter{animation:none}.topbar-btn img{-webkit-user-select:none;user-select:none}.giam-chuyen-dong .topbar-btn{transition:none}.giam-chuyen-dong .topbar-btn:hover,.giam-chuyen-dong .topbar-btn:active{transform:none}.mtb{position:fixed;top:0;right:0;bottom:0;left:0;z-index:2000;display:grid;place-items:center;padding:24px;background:radial-gradient(ellipse at 50% 30%,#1a1230,#000 70%);color:#fff;text-align:center}.mtb-hop{max-width:420px}.mtb-icon{font-size:56px;line-height:1;margin-bottom:14px}.mtb-qua{display:block;width:64px;height:64px;margin:0 auto}.mtb-tai .mtb-icon{animation:mtb-troi 2.4s ease-in-out infinite}.mtb-tieude{margin:0 0 8px;font-size:22px;font-weight:600}.mtb-mo{margin:0;opacity:.78;font-size:15px;line-height:1.5}.mtb-nut{display:flex;gap:10px;justify-content:center;margin-top:20px;flex-wrap:wrap}.mtb-btn{padding:10px 18px;border:0;border-radius:999px;background:#ffc24a;color:#3a2400;font:inherit;font-weight:600;text-decoration:none;cursor:pointer}.mtb-btn-phu{background:#ffffff1f;color:#fff}@keyframes mtb-troi{0%,to{transform:translateY(0)}50%{transform:translateY(-8px)}}.nhan-xemthu{position:fixed;left:12px;bottom:12px;z-index:1500;padding:6px 12px;border-radius:999px;background:#0000008c;color:#fff;font-size:12px;letter-spacing:.2px;pointer-events:none}.dau-dlove{position:fixed;top:max(12px,env(safe-area-inset-top));left:12px;z-index:1500;display:inline-flex;align-items:center;gap:6px;padding:5px 10px 5px 6px;border-radius:999px;background:#00000052;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);color:#fff;font-family:system-ui,-apple-system,Segoe UI,sans-serif;font-size:12px;font-weight:700;letter-spacing:.01em;line-height:1;white-space:nowrap;text-shadow:0 1px 3px rgba(0,0,0,.5);text-decoration:none;opacity:.82;transition:opacity .2s}.dau-dlove:hover{opacity:1}@font-face{font-family:Mali;src:url(../assets/dlove/font/Mali.ttf) format("truetype");font-weight:400;font-style:normal;font-display:swap}:root{color-scheme:dark}*{box-sizing:border-box}html,body,#root{margin:0;padding:0;width:100%;height:100%;background:#000}body{overflow:hidden;font-family:Mali,system-ui,-apple-system,Segoe UI,sans-serif;color:#fff;-webkit-touch-callout:none;-webkit-tap-highlight-color:transparent}
 
 
+
 /* ========================================================
-   HINT CHÚ THÍCH ẤN VÀO ĐÂY ĐỂ MỞ THƯ TRÊN TOPBAR
+   1. HINT CHÚ THÍCH ẤN VÀO ĐÂY ĐỂ MỞ THƯ TRÊN TOPBAR
    ======================================================== */
 .topbar-letter {
     position: relative !important;
@@ -81,17 +82,9 @@
 
 
 /* ========================================================
-   RESPONSIVE TOÀN DIỆN CHO MOBILE & IPAD (dlove.html)
+   2. RESPONSIVE BÓ HOA KỶ NIỆM (BOUQUET STAGE)
    ======================================================== */
-
-/* Đảm bảo toàn bộ không gian 3D và hoa vừa khít trên mọi kích thước */
-:root {
-    --vh: 1vh;
-}
-
-/* 1. MÀN HÌNH BÓ HOA KỶ NIỆM (BOUQUET STAGE) */
 @media (max-width: 1024px) {
-    /* iPad / Tablet */
     .bouquet-screen .bouquet-stage {
         width: min(92vw, calc((100svh - 80px) / 1.28), 520px) !important;
         max-width: 520px !important;
@@ -103,7 +96,6 @@
 }
 
 @media (max-width: 768px) {
-    /* Mobile màn hình lớn & iPad mini */
     .bouquet-screen .bouquet-stage {
         width: min(94vw, calc((100svh - 60px) / 1.28), 440px) !important;
     }
@@ -126,7 +118,6 @@
 }
 
 @media (max-width: 480px) {
-    /* Mobile chuẩn */
     .bouquet-screen .bouquet-stage {
         width: min(96vw, calc((100svh - 40px) / 1.28), 380px) !important;
     }
@@ -134,7 +125,6 @@
         font-size: 11px !important;
         bottom: 8px !important;
     }
-    /* Chú thích mở thư trên Mobile nhỏ gọn & không bị tràn màn hình */
     .topbar-letter::after {
         font-size: 11px !important;
         padding: 5px 10px !important;
@@ -144,109 +134,21 @@
     }
 }
 
-@media (max-width: 360px) {
-    /* Mobile cỡ nhỏ */
-    .bouquet-screen .bouquet-stage {
-        width: min(96vw, calc((100svh - 30px) / 1.28), 340px) !important;
-    }
-    .topbar-letter::after {
-        font-size: 10px !important;
-        padding: 4px 8px !important;
-    }
-}
-
-/* 2. GIAO DIỆN PHONG BÌ THƯ & BỨC THƯ (ENVELOPE & LETTER PAPER) */
-@media (max-width: 1024px) {
-    .fl-modal .envelope {
-        max-width: 620px !important;
-    }
-    .fl-modal .letter-paper {
-        max-width: 580px !important;
-        height: min(78vh, 680px) !important;
-        padding: 85px 32px 55px !important;
-    }
-    .fl-modal .letter-copy h1 {
-        font-size: 46px !important;
-    }
-    .fl-modal .letter-paragraphs p {
-        font-size: 17px !important;
-        line-height: 1.65 !important;
-    }
-}
-
-@media (max-width: 768px) {
-    .fl-modal {
-        padding: 12px !important;
-    }
-    .fl-modal .envelope {
-        width: 96% !important;
-        max-width: 500px !important;
-        bottom: 15px !important;
-    }
-    .fl-modal .letter-paper {
-        width: 95% !important;
-        left: 2.5% !important;
-        height: min(80vh, 620px) !important;
-        padding: 75px 22px 50px !important;
-        border-radius: 14px !important;
-    }
-    .fl-modal .letter-copy h1 {
-        font-size: 38px !important;
-        margin-bottom: 14px !important;
-    }
-    .fl-modal .letter-paragraphs p {
-        font-size: 15px !important;
-        line-height: 1.6 !important;
-    }
-}
-
-@media (max-width: 480px) {
-    .fl-modal .envelope {
-        width: 98% !important;
-        max-width: 420px !important;
-        bottom: 10px !important;
-    }
-    .fl-modal .letter-paper {
-        width: 96% !important;
-        left: 2% !important;
-        height: min(82vh, 560px) !important;
-        padding: 60px 16px 40px !important;
-        border-radius: 12px !important;
-    }
-    .fl-modal .letter-copy h1 {
-        font-size: 30px !important;
-        margin-bottom: 10px !important;
-    }
-    .fl-modal .letter-paragraphs p {
-        font-size: 13.5px !important;
-        line-height: 1.55 !important;
-        margin-bottom: 12px !important;
-    }
-    .fl-modal .fl-toolbar .fl-close {
-        width: 34px !important;
-        height: 34px !important;
-        top: 10px !important;
-        right: 10px !important;
-    }
-}
-
-/* 3. TỐI ƯU KHÔNG GIAN DẢI NGÂN HÀ 3D TRÊN THIẾT BỊ DI ĐỘNG */
 canvas {
     touch-action: manipulation !important;
 }
 
 
 /* ==========================================================================
-   TỐI ƯU MÀN HÌNH BỨC THƯ & PHONG BÌ (dlove.html) CHO MOBILE XOAY NGANG
+   3. TỐI ƯU ĐẶC BIỆT KHI MÀN HÌNH XOAY NGANG (MOBILE LANDSCAPE)
+   Giải quyết triệt để lỗi: Lệch phong bì, không đọc được chữ, không thấy ảnh
    ========================================================================== */
-
 @media screen and (orientation: landscape) and (max-height: 520px) {
     /* 1. Màn hình bó hoa mở đầu */
     .bouquet-screen .bouquet-stage {
         width: min(84vw, calc((100svh - 40px) / 1.28), 360px) !important;
         margin-top: 0 !important;
     }
-
     .bouquet-screen .bouquet-hint {
         font-size: 10px !important;
         bottom: 4px !important;
@@ -258,116 +160,305 @@ canvas {
         right: 12px !important;
         gap: 8px !important;
     }
-
     .topbar-letter {
         width: 38px !important;
         height: 38px !important;
     }
-
     .topbar-letter .envelope-cover {
         width: 32px !important;
     }
-
     .topbar-letter::after {
         font-size: 10px !important;
         padding: 3px 8px !important;
         right: calc(100% + 6px) !important;
     }
-
     .topbar-music {
         width: 32px !important;
         height: 32px !important;
     }
 
-    /* 3. Phong bì thư khi chạm mở */
+    /* 3. Modal hiển thị bức thư: CĂN GIỮA TOÀN BỘ MÀN HÌNH */
     .fl-modal {
-        padding: 6px !important;
+        padding: 0 !important;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: center !important;
+        inset: 0 !important;
+        width: 100vw !important;
+        height: 100vh !important;
+        height: 100dvh !important;
+        max-width: none !important;
+        max-height: none !important;
+        overflow: hidden !important;
+        background: rgba(12, 6, 18, 0.82) !important;
+        backdrop-filter: blur(10px) !important;
+        -webkit-backdrop-filter: blur(10px) !important;
     }
 
-    .fl-modal .envelope {
-        width: min(92vw, 420px) !important;
-        max-width: 420px !important;
-        bottom: 4px !important;
+    /* Nút Đóng bức thư góc trên */
+    .fl-modal .fl-toolbar {
+        position: fixed !important;
+        top: 8px !important;
+        right: 14px !important;
+        z-index: 10005 !important;
+        width: auto !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        pointer-events: auto !important;
     }
-
-    /* 4. Tờ giấy thư chúc mừng sinh nhật */
-    .fl-modal .letter-paper {
-        width: min(94vw, 440px) !important;
-        height: min(88dvh, 340px) !important;
-        max-height: 88dvh !important;
-        padding: 35px 18px 25px !important;
-        border-radius: 12px !important;
-        overflow-y: auto !important;
-    }
-
-    .fl-modal .letter-copy h1 {
-        font-size: 24px !important;
-        margin-bottom: 6px !important;
-    }
-
-    .fl-modal .letter-paragraphs p {
-        font-size: 12px !important;
-        line-height: 1.45 !important;
-        margin-bottom: 8px !important;
-    }
-
     .fl-modal .fl-toolbar .fl-close {
-        width: 28px !important;
-        height: 28px !important;
-        top: 6px !important;
-        right: 6px !important;
+        width: 36px !important;
+        height: 36px !important;
+        font-size: 24px !important;
+        line-height: 32px !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        background: rgba(45, 20, 38, 0.92) !important;
+        border: 1.5px solid rgba(255, 200, 215, 0.6) !important;
+        color: #ffffff !important;
+        border-radius: 50% !important;
+        box-shadow: 0 4px 14px rgba(0, 0, 0, 0.5) !important;
+        cursor: pointer !important;
     }
-}
 
-
-/* TỐI ƯU ĐẶC BIỆT CHO BỨC THƯ TRÊN dlove.html KHI XOAY NGANG */
-@media screen and (orientation: landscape) and (max-height: 520px) {
-    /* Đẩy toàn bộ khung tranh thư lên cao hơn để thư trồi lên không bị đâm xuống đáy */
+    /* Khung chính chứa tác phẩm */
     .fl-modal .fl-main {
+        position: relative !important;
+        width: 100% !important;
+        height: 100% !important;
+        max-width: none !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
         overflow: visible !important;
+        margin: 0 !important;
     }
 
     .fl-modal .fl-artwork {
-        transform: translate(-50%, -46%) scale(var(--letter-scale, 0.85)) !important;
+        position: relative !important;
+        top: auto !important;
+        left: auto !important;
+        transform: none !important;
+        width: 100% !important;
+        height: 100% !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        visibility: visible !important;
     }
 
-    /* Phong bì hạ thấp xuống đáy */
-    .fl-modal .envelope {
-        width: min(85vw, 400px) !important;
-        bottom: 0px !important;
+    .fl-modal .gift-scene {
+        position: relative !important;
+        width: min(94vw, 700px) !important;
+        height: min(88dvh, 335px) !important;
+        max-height: 90vh !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        transition: none !important;
     }
 
-    /* Giấy thư nổi lên trên, padding thoáng, có thể cuộn đọc toàn bộ */
-    .fl-modal .letter-paper {
-        width: 92% !important;
-        left: 4% !important;
-        bottom: 15px !important;
-        height: 82dvh !important;
-        max-height: 380px !important;
-        padding: 40px 18px 24px !important;
-        box-shadow: 0 10px 35px rgba(0, 0, 0, 0.45) !important;
+    /* Khi phong bì đang đóng (chưa mở) */
+    .fl-modal .gift-scene[data-state=closed] .envelope {
+        position: relative !important;
+        width: min(72vw, 380px) !important;
+        aspect-ratio: 1349 / 859 !important;
+        margin: auto !important;
+        bottom: auto !important;
+        left: auto !important;
     }
 
-    /* Tối ưu ảnh chụp góc phải dưới lá thư */
-    .fl-modal .letter-photo {
-        --photo-width: 38% !important;
-        --photo-height: 48% !important;
-        --photo-bottom: 20px !important;
+    /* Khi phong bì đã mở: Ẩn các lớp nắp phong bì che khuất để lộ lá thư sang trọng */
+    .fl-modal .gift-scene[data-state=open] .envelope-back,
+    .fl-modal .gift-scene[data-state=open] .envelope-sides,
+    .fl-modal .gift-scene[data-state=open] .envelope-front,
+    .fl-modal .gift-scene[data-state=open] .wax-seal,
+    .fl-modal .gift-scene[data-state=open] .flap-hinge,
+    .fl-modal .gift-scene[data-state=open] .closed-cover {
+        display: none !important;
     }
 
-    .fl-modal .letter-copy {
+    .fl-modal .gift-scene[data-state=open] .envelope {
+        position: static !important;
+        width: 100% !important;
+        height: 100% !important;
+        aspect-ratio: auto !important;
+    }
+
+    /* 4. TỜ THƯ CHÚC MỪNG SINH NHẬT DẠNG 2 CỘT HIỆN ĐẠI (ĐỌC CHỮ + NGẮM ẢNH) */
+    .fl-modal .gift-scene[data-state=open] .letter-paper,
+    .fl-modal .gift-scene[data-state=opening] .letter-paper {
+        position: relative !important;
+        width: min(94vw, 700px) !important;
+        height: min(88dvh, 335px) !important;
+        max-height: 90vh !important;
+        margin: auto !important;
+        left: auto !important;
+        bottom: auto !important;
+        top: auto !important;
+        transform: none !important;
+        opacity: 1 !important;
+        pointer-events: auto !important;
+        display: flex !important;
+        flex-direction: row !important;
+        align-items: stretch !important;
+        gap: 16px !important;
+        padding: 18px 22px !important;
+        border-radius: 18px !important;
+        background: url(../assets/dlove/letter-20-10/paper-texture.webp) 0 0 / 204px 154px, #fffbf7 !important;
+        border: 2px solid #ecd8cf !important;
+        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6), 0 0 25px rgba(255, 180, 200, 0.3) !important;
+        overflow: hidden !important;
+        z-index: 100 !important;
+        box-sizing: border-box !important;
+    }
+
+    /* Viền hoa giấy trang trí */
+    .fl-modal .paper-border {
+        position: absolute !important;
+        inset: 8px !important;
+        border: 1px solid rgba(195, 152, 120, 0.25) !important;
+        border-radius: 12px !important;
+        pointer-events: none !important;
+    }
+
+    /* CỘT TRÁI (58%): LỜI CHÚC DỄ ĐỌC, CUỘN MƯỢT MÀ */
+    .fl-modal .gift-scene[data-state=open] .letter-copy {
+        flex: 1 1 58% !important;
+        width: 58% !important;
+        height: 100% !important;
         overflow-y: auto !important;
         -webkit-overflow-scrolling: touch !important;
+        padding-right: 10px !important;
+        position: relative !important;
+        z-index: 2 !important;
+        box-sizing: border-box !important;
     }
 
-    .fl-modal .letter-copy h1 {
-        font-size: 20px !important;
-        margin-bottom: 6px !important;
+    .fl-modal .gift-scene[data-state=open] .letter-copy h1 {
+        font-size: 19px !important;
+        margin-top: 0 !important;
+        margin-bottom: 8px !important;
+        color: #795246 !important;
+        font-family: 'Mali', cursive, Georgia, serif !important;
+        line-height: 1.3 !important;
+        font-weight: 700 !important;
     }
 
-    .fl-modal .letter-paragraphs p {
-        font-size: 11.5px !important;
-        line-height: 1.5 !important;
-        margin-bottom: 6px !important;
+    .fl-modal .gift-scene[data-state=open] .greeting-heart {
+        font-size: 16px !important;
+        color: #e63946 !important;
+        margin-left: 4px !important;
+    }
+
+    .fl-modal .gift-scene[data-state=open] .letter-paragraphs p {
+        font-size: 12.5px !important;
+        line-height: 1.55 !important;
+        color: #553c33 !important;
+        margin-bottom: 8px !important;
+        font-family: 'Mali', cursive, Georgia, serif !important;
+        text-align: justify !important;
+    }
+
+    .fl-modal .gift-scene[data-state=open] .letter-signature {
+        font-size: 13.5px !important;
+        color: #b05c5c !important;
+        margin-top: 10px !important;
+        text-align: right !important;
+        font-style: italic !important;
+        font-weight: 600 !important;
+        font-family: 'Mali', cursive, Georgia, serif !important;
+    }
+
+    /* CỘT PHẢI (40%): KHUNG ẢNH KỶ NIỆM RỰC RỠ CỦA CHỊ TRINH */
+    .fl-modal .gift-scene[data-state=open] .letter-photo {
+        flex: 0 0 40% !important;
+        width: 40% !important;
+        height: 100% !important;
+        min-height: 0 !important;
+        position: relative !important;
+        top: auto !important;
+        right: auto !important;
+        bottom: auto !important;
+        left: auto !important;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: center !important;
+        cursor: pointer !important;
+        border-radius: 14px !important;
+        background: linear-gradient(135deg, rgba(255, 245, 247, 0.9), rgba(255, 235, 240, 0.8)) !important;
+        border: 1.5px solid rgba(255, 180, 200, 0.6) !important;
+        padding: 6px !important;
+        box-shadow: 0 6px 18px rgba(255, 77, 109, 0.18) !important;
+        z-index: 5 !important;
+        box-sizing: border-box !important;
+    }
+
+    .fl-modal .gift-scene[data-state=open] .photo-viewport {
+        position: relative !important;
+        width: 100% !important;
+        height: 80% !important;
+        inset: auto !important;
+        border-radius: 10px !important;
+        overflow: hidden !important;
+        mask-image: none !important;
+        -webkit-mask-image: none !important;
+        background: #fdf5f5 !important;
+    }
+
+    .fl-modal .gift-scene[data-state=open] .photo-viewport img {
+        width: 100% !important;
+        height: 100% !important;
+        object-fit: cover !important;
+        object-position: center 20% !important;
+        border-radius: 8px !important;
+        transform: none !important;
+        display: block !important;
+    }
+
+    .fl-modal .gift-scene[data-state=open] .photo-hint {
+        position: relative !important;
+        inset: auto !important;
+        margin-top: 6px !important;
+        padding: 4px 12px !important;
+        font-size: 11px !important;
+        font-weight: 700 !important;
+        background: #ffffff !important;
+        color: #ff4d6d !important;
+        border: 1px solid rgba(255, 77, 109, 0.4) !important;
+        border-radius: 20px !important;
+        opacity: 1 !important;
+        white-space: nowrap !important;
+        box-shadow: 0 2px 8px rgba(255, 77, 109, 0.25) !important;
+    }
+
+    /* KHI NGƯỜI DÙNG BẤM VÀO ẢNH: PHÓNG TO TOÀN KHUNG ĐỂ NGẮM */
+    .fl-modal .gift-scene[data-focus=photo] .letter-copy {
+        display: none !important;
+    }
+
+    .fl-modal .gift-scene[data-focus=photo] .letter-photo {
+        flex: 1 1 100% !important;
+        width: 100% !important;
+        height: 100% !important;
+    }
+
+    .fl-modal .gift-scene[data-focus=photo] .photo-viewport {
+        height: 88% !important;
+    }
+
+    .fl-modal .gift-scene[data-focus=photo] .photo-viewport img {
+        object-fit: contain !important;
+    }
+
+    /* Ẩn các hoa trang trí tránh che chữ trên màn hình ngang */
+    .fl-modal .flower-photo,
+    .fl-modal .flower-top,
+    .fl-modal .photo-backdrop,
+    .fl-modal .photo-glow {
+        display: none !important;
     }
 }
