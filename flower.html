@@ -360,6 +360,46 @@
             transform: translateY(-2px);
             box-shadow: 0 12px 25px rgba(255, 77, 109, 0.6);
         }
+        /* Responsive màn hình ngang cho Popup Hoa */
+        @media screen and (orientation: landscape) and (max-height: 520px) {
+            .flower-modal-overlay {
+                padding: 6px !important;
+                overflow-y: auto !important;
+            }
+            .flower-modal-card {
+                padding: 10px 18px !important;
+                max-width: 520px !important;
+                max-height: 94dvh !important;
+                max-height: 94vh !important;
+                border-radius: 18px !important;
+                overflow-y: auto !important;
+            }
+            .flower-modal-avatar {
+                font-size: 26px !important;
+                margin-bottom: 4px !important;
+            }
+            .flower-modal-title {
+                font-size: 15px !important;
+                margin-bottom: 6px !important;
+            }
+            .flower-modal-bubble {
+                padding: 8px 12px !important;
+                margin-bottom: 6px !important;
+                font-size: 11.5px !important;
+                line-height: 1.45 !important;
+            }
+            .flower-modal-bubble p {
+                margin: 0 !important;
+            }
+            .flower-modal-hint {
+                font-size: 10px !important;
+                margin-bottom: 8px !important;
+            }
+            .flower-modal-btn {
+                padding: 6px 18px !important;
+                font-size: 12px !important;
+            }
+        }
     </style>
 
     <!-- Thư viện pháo hoa confetti -->

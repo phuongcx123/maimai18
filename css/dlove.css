@@ -318,3 +318,56 @@ canvas {
         right: 6px !important;
     }
 }
+
+
+/* TỐI ƯU ĐẶC BIỆT CHO BỨC THƯ TRÊN dlove.html KHI XOAY NGANG */
+@media screen and (orientation: landscape) and (max-height: 520px) {
+    /* Đẩy toàn bộ khung tranh thư lên cao hơn để thư trồi lên không bị đâm xuống đáy */
+    .fl-modal .fl-main {
+        overflow: visible !important;
+    }
+
+    .fl-modal .fl-artwork {
+        transform: translate(-50%, -46%) scale(var(--letter-scale, 0.85)) !important;
+    }
+
+    /* Phong bì hạ thấp xuống đáy */
+    .fl-modal .envelope {
+        width: min(85vw, 400px) !important;
+        bottom: 0px !important;
+    }
+
+    /* Giấy thư nổi lên trên, padding thoáng, có thể cuộn đọc toàn bộ */
+    .fl-modal .letter-paper {
+        width: 92% !important;
+        left: 4% !important;
+        bottom: 15px !important;
+        height: 82dvh !important;
+        max-height: 380px !important;
+        padding: 40px 18px 24px !important;
+        box-shadow: 0 10px 35px rgba(0, 0, 0, 0.45) !important;
+    }
+
+    /* Tối ưu ảnh chụp góc phải dưới lá thư */
+    .fl-modal .letter-photo {
+        --photo-width: 38% !important;
+        --photo-height: 48% !important;
+        --photo-bottom: 20px !important;
+    }
+
+    .fl-modal .letter-copy {
+        overflow-y: auto !important;
+        -webkit-overflow-scrolling: touch !important;
+    }
+
+    .fl-modal .letter-copy h1 {
+        font-size: 20px !important;
+        margin-bottom: 6px !important;
+    }
+
+    .fl-modal .letter-paragraphs p {
+        font-size: 11.5px !important;
+        line-height: 1.5 !important;
+        margin-bottom: 6px !important;
+    }
+}
