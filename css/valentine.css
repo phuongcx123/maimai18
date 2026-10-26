@@ -1711,3 +1711,142 @@
     font-family: 'Mali', cursive, sans-serif;
     line-height: 1.4;
 }
+
+
+/* ========================================================
+   RESPONSIVE HOÀN HẢO MÀN HÌNH XOAY NGANG TRÊN MOBILE
+   (Khắc phục triệt để lỗi Safari / Chrome / Zalo trên iPhone & Android)
+   ======================================================== */
+
+@media screen and (orientation: landscape) and (max-height: 520px) {
+    /* Đảm bảo toàn bộ màn hình hiển thị gọn gàng, không bị tràn thanh công cụ */
+    html, body {
+        height: 100vh !important;
+        height: 100dvh !important;
+        overflow: hidden !important;
+    }
+
+    #lock-screen {
+        padding: 4px 10px !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+    }
+
+    .lock-container {
+        padding: 8px 18px !important;
+        border-radius: 18px !important;
+        margin: auto !important;
+        max-width: 440px !important;
+        width: 90% !important;
+        max-height: 94vh !important;
+        max-height: 94dvh !important;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6) !important;
+        animation: none !important;
+        transform: none !important;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: center !important;
+    }
+
+    .title {
+        font-size: 14px !important;
+        margin-top: 2px !important;
+        margin-bottom: 6px !important;
+        letter-spacing: 0.3px !important;
+    }
+
+    .pass-dots {
+        margin-bottom: 6px !important;
+        gap: 10px !important;
+    }
+
+    .dot {
+        width: 10px !important;
+        height: 10px !important;
+        border-width: 1.5px !important;
+    }
+
+    .pass-error-msg {
+        margin-top: -4px !important;
+        margin-bottom: 4px !important;
+        min-height: 14px !important;
+        font-size: 11px !important;
+    }
+
+    .numpad {
+        max-width: 210px !important;
+        gap: 5px !important;
+    }
+
+    .num-btn {
+        padding: 5px 8px !important;
+        font-size: 14px !important;
+        border-radius: 10px !important;
+        min-height: 32px !important;
+    }
+
+    .card-wrapper {
+        height: 92vh !important;
+        height: 92dvh !important;
+        padding: 10px !important;
+        border-radius: 18px !important;
+    }
+
+    .card-left {
+        padding: 8px 14px !important;
+    }
+
+    .main-title {
+        font-size: 16px !important;
+        margin-bottom: 4px !important;
+    }
+
+    .typing-text {
+        font-size: 11px !important;
+        line-height: 1.4 !important;
+        min-height: 48px !important;
+    }
+
+    .scratch-box {
+        width: 160px !important;
+        height: 200px !important;
+    }
+}
+
+/* Riêng cho các dòng máy màn hình siêu ngắn (max-height: 380px) */
+@media screen and (orientation: landscape) and (max-height: 380px) {
+    .lock-container {
+        padding: 4px 14px !important;
+    }
+    .title {
+        font-size: 12px !important;
+        margin-bottom: 3px !important;
+    }
+    .pass-dots {
+        margin-bottom: 4px !important;
+    }
+    .numpad {
+        max-width: 190px !important;
+        gap: 4px !important;
+    }
+    .num-btn {
+        padding: 3px 6px !important;
+        font-size: 13px !important;
+        min-height: 28px !important;
+    }
+}
+
+/* Hướng dẫn mở bằng trình duyệt ngoài khi dùng Zalo (in-app browser) */
+.zalo-open-safari-badge {
+    margin-top: 12px;
+    background: rgba(255, 209, 102, 0.2);
+    border: 1px dashed #ffd166;
+    padding: 8px 14px;
+    border-radius: 12px;
+    font-size: 12px;
+    color: #fffae6;
+    line-height: 1.4;
+    text-align: center;
+}
